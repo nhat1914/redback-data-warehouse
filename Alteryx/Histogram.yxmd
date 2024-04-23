@@ -3,7 +3,7 @@
   <Nodes>
     <Node ToolID="1">
       <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
-        <Position x="138" y="102" />
+        <Position x="54" y="66" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -88,7 +88,7 @@
     </Node>
     <Node ToolID="2">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
-        <Position x="270" y="102" />
+        <Position x="186" y="66" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -107,54 +107,103 @@ Carb_INT = ToNumber([DR1TCARB])
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
     </Node>
-    <Node ToolID="3">
-      <GuiSettings Plugin="Linear_Regression">
-        <Position x="486" y="102" />
+    <Node ToolID="5">
+      <GuiSettings>
+        <Position x="450" y="42" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <Value name="curPage">Home</Value>
-          <Value name="curTab">advanced</Value>
-          <Value name="standardize_pred">True</Value>
-          <Value name="internal_cv">True</Value>
-          <Value name="display_graphs">True</Value>
-          <Value name="set_seed_internal_cv">True</Value>
-          <Value name="set_seed_external_cv">True</Value>
-          <Value name="lambda_1se">True</Value>
-          <Value name="lambda_min">False</Value>
-          <Value name="Model Name">Linear_Regression_3</Value>
-          <Value name="Y Var">PEASCST1</Value>
-          <Value name="X Vars">Protein_INT,Carb_INT</Value>
-          <Value name="Omit Constant">False</Value>
-          <Value name="Use Weights">False</Value>
-          <Value name="Weight Vec" />
-          <Value name="regularization">False</Value>
-          <Value name="alpha">0.5</Value>
-          <Value name="nfolds">5</Value>
-          <Value name="lambda">lambda_1se</Value>
-          <Value name="seed_internal_cv">1</Value>
-          <Value name="lambda_no_cv">0.5</Value>
-          <Value name="external_cv">False</Value>
-          <Value name="nfolds_external">5</Value>
-          <Value name="numberTrials">3</Value>
-          <Value name="external_seed_value">1</Value>
+          <Value name="field">Carb_INT</Value>
+          <Value name="notauto">False</Value>
+          <Value name="breaks">1</Value>
+          <Value name="density">False</Value>
+          <Value name="scale">1.0</Value>
+          <Value name="inches">True</Value>
+          <Value name="in.w">5.50</Value>
+          <Value name="in.h">5.50</Value>
+          <Value name="centimeters">False</Value>
+          <Value name="cm.w">13.00</Value>
+          <Value name="cm.h">14.95</Value>
           <Value name="graph.resolution">1x</Value>
+          <Value name="pointsize">10</Value>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
-          <DefaultAnnotationText>Linear_Regression_3</DefaultAnnotationText>
+          <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
       </Properties>
-      <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" />
+      <EngineSettings Macro="Predictive Tools\Histogram.yxmc" />
     </Node>
-    <Node ToolID="5">
+    <Node ToolID="6">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="618" y="90" />
+        <Position x="594" y="42" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\Lenovo\AppData\Local\Temp\Engine_15512_3f2c951a3274cf4bb715994bec0aedd6_\Engine_15512_15752f1bb0ec364f8ecb83a4be30acc9~.yxdb</TempFile>
+          <TempFile>C:\Users\Lenovo\AppData\Local\Temp\Engine_15848_05362c0da1d23f47ab184f1b90a05cee_\Engine_15848_5256bb3455db404fbebf5dd2bd690062~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings>
+        <Position x="450" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="field">Protein_INT</Value>
+          <Value name="notauto">False</Value>
+          <Value name="breaks">1</Value>
+          <Value name="density">False</Value>
+          <Value name="scale">1.0</Value>
+          <Value name="inches">True</Value>
+          <Value name="in.w">5.50</Value>
+          <Value name="in.h">5.50</Value>
+          <Value name="centimeters">False</Value>
+          <Value name="cm.w">13.00</Value>
+          <Value name="cm.h">14.95</Value>
+          <Value name="graph.resolution">1x</Value>
+          <Value name="pointsize">10</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings Macro="Predictive Tools\Histogram.yxmc" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="594" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\Lenovo\AppData\Local\Temp\Engine_15848_05362c0da1d23f47ab184f1b90a05cee_\Engine_15848_0e225534087fef4a87cad05a134112fe~.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -184,11 +233,19 @@ Carb_INT = ToNumber([DR1TCARB])
     </Connection>
     <Connection>
       <Origin ToolID="2" Connection="Output" />
-      <Destination ToolID="3" Connection="Input" />
+      <Destination ToolID="5" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="3" Connection="Reports" />
-      <Destination ToolID="5" Connection="Input" />
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
     </Connection>
   </Connections>
   <Properties>
@@ -211,7 +268,7 @@ Carb_INT = ToNumber([DR1TCARB])
     <LayoutType>Horizontal</LayoutType>
     <MetaInfo>
       <NameIsFileName value="True" />
-      <Name>Simple Linear Regression</Name>
+      <Name>Histogram</Name>
       <Description />
       <RootToolName />
       <ToolVersion />
@@ -226,10 +283,10 @@ Carb_INT = ToNumber([DR1TCARB])
         <Description />
         <File />
       </Example>
-      <WorkflowId value="9fbc91e4-b029-47fc-9620-c24c7c081af7" />
+      <WorkflowId value="22852f45-8adf-498b-9489-fc1066a79ef7" />
       <Telemetry>
-        <PreviousWorkflowId value="09869025-aeec-4ba3-862b-6135ad826a4c" />
-        <OriginWorkflowId value="09869025-aeec-4ba3-862b-6135ad826a4c" />
+        <PreviousWorkflowId value="6c3976fe-6e9b-4964-abaa-c3c1616fb01f" />
+        <OriginWorkflowId value="fdc80501-a9b9-4e05-9f13-8f273a70d83d" />
       </Telemetry>
       <PlatformWorkflowId value="" />
     </MetaInfo>
