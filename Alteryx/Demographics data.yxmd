@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2023.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File RecordLimit="" SearchSubDirs="False" FileFormat="0" OutputFileName="">F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv</File>
+          <FormatSpecificOptions>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreErrors>False</IgnoreErrors>
+            <AllowShareWrite>True</AllowShareWrite>
+            <ImportLine>1</ImportLine>
+            <FieldLen>254</FieldLen>
+            <SingleThreadRead>False</SingleThreadRead>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <Delimeter>,</Delimeter>
+            <QuoteRecordBreak>False</QuoteRecordBreak>
+            <CodePage>28591</CodePage>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>demographic.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="SEQN" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="SDDSRVYR" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="RIDSTATR" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="RIAGENDR" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="RIDAGEYR" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="RIDAGEMN" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="RIDRETH1" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="RIDRETH3" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="RIDEXMON" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="RIDEXAGM" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMQMILIZ" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMQADFC" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDBORN4" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDCITZN" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDYRSUS" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDEDUC3" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDEDUC2" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDMARTL" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="RIDEXPRG" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="SIALANG" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="SIAPROXY" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="SIAINTRP" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="FIALANG" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="FIAPROXY" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="FIAINTRP" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="MIALANG" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="MIAPROXY" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="MIAINTRP" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="AIALANGA" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDHHSIZ" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDFMSIZ" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDHHSZA" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDHHSZB" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDHHSZE" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDHRGND" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDHRAGE" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDHRBR4" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDHREDU" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDHRMAR" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="DMDHSEDU" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="WTINT2YR" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="WTMEC2YR" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="SDMVPSU" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="SDMVSTRA" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="INDHHIN2" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="INDFMIN2" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+            <Field name="INDFMPIR" size="254" source="File: F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\demographic.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings>
+        <Position x="222" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Check Box (135)">True</Value>
+          <Value name="Check Box (136)">True</Value>
+          <Value name="List Box (11)">"SEQN","ACD011A","ACD011B","ACD011C","ACD040","ACD110","ALQ101","ALQ110","ALQ120Q","ALQ120U","ALQ130","ALQ141Q","ALQ141U","ALQ151","ALQ160","BPQ020","BPQ030","BPD035","BPQ040A","BPQ050A","BPQ056","BPD058","BPQ059","BPQ080","BPQ060","BPQ070","BPQ090D","BPQ100D","CBD070","CBD090","CBD110","CBD120","CBD130","HSD010","HSQ500","HSQ510","HSQ520","HSQ571","HSQ580","HSQ590","HSAQUEX","CSQ010","CSQ020","CSQ030","CSQ040","CSQ060","CSQ070","CSQ080","CSQ090A","CSQ090B","CSQ090C","CSQ090D","CSQ100","CSQ110","CSQ120A","CSQ120B","CSQ120C","CSQ120D","CSQ120E","CSQ120F","CSQ120G","CSQ120H","CSQ140","CSQ160","CSQ170","CSQ180","CSQ190","CSQ200","CSQ202","CSQ204","CSQ210","CSQ220","CSQ240","CSQ250","CSQ260","AUQ136","AUQ138","CDQ001","CDQ002","CDQ003","CDQ004","CDQ005","CDQ006","CDQ009A","CDQ009B","CDQ009C","CDQ009D","CDQ009E","CDQ009F","CDQ009G","CDQ009H","CDQ008","CDQ010","DIQ010","DID040","DIQ160","DIQ170","DIQ172","DIQ175A","DIQ175B","DIQ175C","DIQ175D","DIQ175E","DIQ175F","DIQ175G","DIQ175H","DIQ175I","DIQ175J","DIQ175K","DIQ175L","DIQ175M","DIQ175N","DIQ175O","DIQ175P","DIQ175Q","DIQ175R","DIQ175S","DIQ175T","DIQ175U","DIQ175V","DIQ175W","DIQ175X","DIQ180","DIQ050","DID060","DIQ060U","DIQ070","DIQ230","DIQ240","DID250","DID260","DIQ260U","DIQ275","DIQ280","DIQ291","DIQ300S","DIQ300D","DID310S","DID310D","DID320","DID330","DID341","DID350","DIQ350U","DIQ360","DIQ080","DBQ010","DBD030","DBD041","DBD050","DBD055","DBD061","DBQ073A","DBQ073B","DBQ073C","DBQ073D","DBQ073E","DBQ073U","DBQ700","DBQ197","DBQ223A","DBQ223B","DBQ223C","DBQ223D","DBQ223E","DBQ223U","DBQ229","DBQ235A","DBQ235B","DBQ235C","DBQ301","DBQ330","DBQ360","DBQ370","DBD381","DBQ390","DBQ400","DBD411","DBQ421","DBQ424","DBD895","DBD900","DBD905","DBD910","CBQ596","CBQ606","CBQ611","CBQ505","CBQ535","CBQ540","CBQ545","CBQ550","CBQ552","CBQ580","CBQ585","CBQ590","DED031","DEQ034A","DEQ034C","DEQ034D","DEQ038G","DEQ038Q","DED120","DED125","DLQ010","DLQ020","DLQ040","DLQ050","DLQ060","DLQ080","DPQ010","DPQ020","DPQ030","DPQ040","DPQ050","DPQ060","DPQ070","DPQ080","DPQ090","DPQ100","DUQ200","DUQ210","DUQ211","DUQ213","DUQ215Q","DUQ215U","DUQ217","DUQ219","DUQ220Q","DUQ220U","DUQ230","DUQ240","DUQ250","DUQ260","DUQ270Q","DUQ270U","DUQ272","DUQ280","DUQ290","DUQ300","DUQ310Q","DUQ310U","DUQ320","DUQ330","DUQ340","DUQ350Q","DUQ350U","DUQ352","DUQ360","DUQ370","DUQ380A","DUQ380B","DUQ380C","DUQ380D","DUQ380E","DUQ390","DUQ400Q","DUQ400U","DUQ410","DUQ420","DUQ430","ECD010","ECQ020","ECD070A","ECD070B","ECQ080","ECQ090","WHQ030E","MCQ080E","ECQ150","FSD032A","FSD032B","FSD032C","FSD041","FSD052","FSD061","FSD071","FSD081","FSD092","FSD102","FSD032D","FSD032E","FSD032F","FSD111","FSD122","FSD132","FSD141","FSD146","FSDHH","FSDAD","FSDCH","FSD151","FSQ165","FSQ012","FSD012N","FSD230","FSD225","FSQ235","FSQ162","FSD650ZC","FSD660ZC","FSD675","FSD680","FSD670ZC","FSQ690","FSQ695","FSD650ZW","FSD660ZW","FSD670ZW","HEQ010","HEQ020","HEQ030","HEQ040","HIQ011","HIQ031A","HIQ031B","HIQ031C","HIQ031D","HIQ031E","HIQ031F","HIQ031G","HIQ031H","HIQ031I","HIQ031J","HIQ031AA","HIQ260","HIQ105","HIQ270","HIQ210","HOD050","HOQ065","HUQ010","HUQ020","HUQ030","HUQ041","HUQ051","HUQ061","HUQ071","HUD080","HUQ090","IMQ011","IMQ020","IMQ040","IMQ070","IMQ080","IMQ090","IMQ045","INQ020","INQ012","INQ030","INQ060","INQ080","INQ090","INQ132","INQ140","INQ150","IND235","INDFMMPI","INDFMMPC","INQ244","IND247","MCQ010","MCQ025","MCQ035","MCQ040","MCQ050","AGQ030","MCQ053","MCQ070","MCQ075","MCQ080","MCQ082","MCQ084","MCQ086","MCQ092","MCD093","MCQ149","MCQ151","MCQ160A","MCQ180A","MCQ195","MCQ160N","MCQ180N","MCQ160B","MCQ180B","MCQ160C","MCQ180C","MCQ160D","MCQ180D","MCQ160E","MCQ180E","MCQ160F","MCQ180F","MCQ160G","MCQ180G","MCQ160M","MCQ170M","MCQ180M","MCQ160K","MCQ170K","MCQ180K","MCQ160L","MCQ170L","MCQ180L","MCQ160O","MCQ203","MCQ206","MCQ220","MCQ230A","MCQ230B","MCQ230C","MCQ230D","MCQ240A","MCQ240AA","MCQ240B","MCQ240BB","MCQ240C","MCQ240CC","MCQ240D","MCQ240DD","MCQ240DK","MCQ240E","MCQ240F","MCQ240G","MCQ240H","MCQ240I","MCQ240J","MCQ240K","MCQ240L","MCQ240M","MCQ240N","MCQ240O","MCQ240P","MCQ240Q","MCQ240R","MCQ240S","MCQ240T","MCQ240U","MCQ240V","MCQ240W","MCQ240X","MCQ240Y","MCQ240Z","MCQ300A","MCQ300B","MCQ300C","MCQ365A","MCQ365B","MCQ365C","MCQ365D","MCQ370A","MCQ370B","MCQ370C","MCQ370D","MCQ380","OCD150","OCQ180","OCQ210","OCQ260","OCD270","OCQ380","OCD390G","OCD395","OHQ030","OHQ033","OHQ770","OHQ780A","OHQ780B","OHQ780C","OHQ780D","OHQ780E","OHQ780F","OHQ780G","OHQ780H","OHQ780I","OHQ780J","OHQ780K","OHQ555G","OHQ555Q","OHQ555U","OHQ560G","OHQ560Q","OHQ560U","OHQ565","OHQ570Q","OHQ570U","OHQ575G","OHQ575Q","OHQ575U","OHQ580","OHQ585Q","OHQ585U","OHQ590G","OHQ590Q","OHQ590U","OHQ610","OHQ612","OHQ614","OHQ620","OHQ640","OHQ680","OHQ835","OHQ845","OHQ848G","OHQ848Q","OHQ849","OHQ850","OHQ855","OHQ860","OHQ865","OHQ870","OHQ875","OHQ880","OHQ885","OHQ895","OHQ900","OSQ010A","OSQ010B","OSQ010C","OSQ020A","OSQ020B","OSQ020C","OSD030AA","OSQ040AA","OSD050AA","OSD030AB","OSQ040AB","OSD050AB","OSD030AC","OSQ040AC","OSD050AC","OSD030BA","OSQ040BA","OSD050BA","OSD030BB","OSQ040BB","OSD050BB","OSD030BC","OSQ040BC","OSD050BC","OSD030BD","OSQ040BD","OSD050BD","OSD030BE","OSQ040BE","OSD030BF","OSQ040BF","OSD030BG","OSQ040BG","OSD030BH","OSQ040BH","OSD030BI","OSQ040BI","OSD030BJ","OSQ040BJ","OSD030CA","OSQ040CA","OSD050CA","OSD030CB","OSQ040CB","OSD050CB","OSD030CC","OSQ040CC","OSQ080","OSQ090A","OSQ100A","OSD110A","OSQ120A","OSQ090B","OSQ100B","OSD110B","OSQ120B","OSQ090C","OSQ100C","OSD110C","OSQ120C","OSQ090D","OSQ100D","OSD110D","OSQ120D","OSQ090E","OSQ100E","OSD110E","OSQ120E","OSQ090F","OSQ120F","OSQ090G","OSQ100G","OSD110G","OSQ120G","OSQ090H","OSQ120H","OSQ060","OSQ072","OSQ130","OSQ140Q","OSQ140U","OSQ150","OSQ160A","OSQ160B","OSQ170","OSQ180","OSQ190","OSQ200","OSQ210","OSQ220","PFQ020","PFQ030","PFQ033","PFQ041","PFQ049","PFQ051","PFQ054","PFQ057","PFQ059","PFQ061A","PFQ061B","PFQ061C","PFQ061D","PFQ061E","PFQ061F","PFQ061G","PFQ061H","PFQ061I","PFQ061J","PFQ061K","PFQ061L","PFQ061M","PFQ061N","PFQ061O","PFQ061P","PFQ061Q","PFQ061R","PFQ061S","PFQ061T","PFQ063A","PFQ063B","PFQ063C","PFQ063D","PFQ063E","PFQ090","PAQ605","PAQ610","PAD615","PAQ620","PAQ625","PAD630","PAQ635","PAQ640","PAD645","PAQ650","PAQ655","PAD660","PAQ665","PAQ670","PAD675","PAD680","PAQ706","PAQ710","PAQ715","PAQ722","PAQ724A","PAQ724B","PAQ724C","PAQ724D","PAQ724E","PAQ724F","PAQ724G","PAQ724H","PAQ724I","PAQ724J","PAQ724K","PAQ724L","PAQ724M","PAQ724N","PAQ724O","PAQ724P","PAQ724Q","PAQ724R","PAQ724S","PAQ724T","PAQ724U","PAQ724V","PAQ724W","PAQ724X","PAQ724Y","PAQ724Z","PAQ724AA","PAQ724AB","PAQ724AC","PAQ724AD","PAQ724AE","PAQ724AF","PAQ724CM","PAQ731","PAD733","PAQ677","PAQ678","PAQ740","PAQ742","PAQ744","PAQ746","PAQ748","PAQ755","PAQ759A","PAQ759B","PAQ759C","PAQ759D","PAQ759E","PAQ759F","PAQ759G","PAQ759H","PAQ759I","PAQ759J","PAQ759K","PAQ759L","PAQ759M","PAQ759N","PAQ759O","PAQ759P","PAQ759Q","PAQ759R","PAQ759S","PAQ759T","PAQ759U","PAQ759V","PAQ762","PAQ764","PAQ766","PAQ679","PAQ750","PAQ770","PAQ772A","PAQ772B","PAQ772C","PAAQUEX","PUQ100","PUQ110","RHQ010","RHQ020","RHQ031","RHD043","RHQ060","RHQ070","RHQ074","RHQ076","RHQ078","RHQ131","RHD143","RHQ160","RHQ162","RHQ163","RHQ166","RHQ169","RHQ172","RHD173","RHQ171","RHD180","RHD190","RHQ197","RHQ200","RHD280","RHQ291","RHQ305","RHQ332","RHQ420","RHQ540","RHQ542A","RHQ542B","RHQ542C","RHQ542D","RHQ554","RHQ560Q","RHQ560U","RHQ570","RHQ576Q","RHQ576U","RHQ580","RHQ586Q","RHQ586U","RHQ596","RHQ602Q","RHQ602U","RXQ510","RXQ515","RXQ520","RXQ525G","RXQ525Q","RXQ525U","RXD530","SLD010H","SLQ050","SLQ060","SMQ020","SMD030","SMQ040","SMQ050Q","SMQ050U","SMD055","SMD057","SMQ078","SMD641","SMD650","SMD093","SMDUPCA","SMD100BR","SMD100FL","SMD100MN","SMD100LN","SMD100TR","SMD100NI","SMD100CO","SMQ621","SMD630","SMQ661","SMQ665A","SMQ665B","SMQ665C","SMQ665D","SMQ670","SMQ848","SMQ852Q","SMQ852U","SMAQUEX2","SMD460","SMD470","SMD480","SMQ856","SMQ858","SMQ860","SMQ862","SMQ866","SMQ868","SMQ870","SMQ872","SMQ874","SMQ876","SMQ878","SMQ880","SMAQUEX.x","SMQ681","SMQ690A","SMQ710","SMQ720","SMQ725","SMQ690B","SMQ740","SMQ690C","SMQ770","SMQ690G","SMQ845","SMQ690H","SMQ849","SMQ851","SMQ690D","SMQ800","SMQ690E","SMQ817","SMQ690I","SMQ857","SMQ690J","SMQ861","SMQ863","SMQ690F","SMQ830","SMQ840","SMDANY","SMAQUEX.y","SXD021","SXQ800","SXQ803","SXQ806","SXQ809","SXQ700","SXQ703","SXQ706","SXQ709","SXD031","SXD171","SXD510","SXQ824","SXQ827","SXD633","SXQ636","SXQ639","SXD642","SXQ410","SXQ550","SXQ836","SXQ841","SXQ853","SXD621","SXQ624","SXQ627","SXD630","SXQ645","SXQ648","SXQ610","SXQ251","SXQ590","SXQ600","SXD101","SXD450","SXQ724","SXQ727","SXQ130","SXQ490","SXQ741","SXQ753","SXQ260","SXQ265","SXQ267","SXQ270","SXQ272","SXQ280","SXQ292","SXQ294","WHD010","WHD020","WHQ030","WHQ040","WHD050","WHQ060","WHQ070","WHD080A","WHD080B","WHD080C","WHD080D","WHD080E","WHD080F","WHD080G","WHD080H","WHD080I","WHD080J","WHD080K","WHD080M","WHD080N","WHD080O","WHD080P","WHD080Q","WHD080R","WHD080S","WHD080T","WHD080U","WHD080L","WHD110","WHD120","WHD130","WHD140","WHQ150","WHQ030M","WHQ500","WHQ520"</Value>
+          <Value name="Check Box (84)">True</Value>
+          <Value name="Check Box (117)">True</Value>
+          <Value name="Check Box (15)">True</Value>
+          <Value name="Check Box (109)">False</Value>
+          <Value name="Check Box (122)">False</Value>
+          <Value name="Check Box (53)">False</Value>
+          <Value name="Check Box (58)">False</Value>
+          <Value name="Check Box (70)">False</Value>
+          <Value name="Check Box (77)">False</Value>
+          <Value name="Drop Down (81)">upper</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="414" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File FileFormat="19" MaxRecords="">F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\Github\Demographics Data.yxdb</File>
+          <Passwords />
+          <Disable>False</Disable>
+          <FormatSpecificOptions>
+            <NoSpatialIndex>False</NoSpatialIndex>
+            <SaveSource>True</SaveSource>
+            <WriteCompatibleVersion>False</WriteCompatibleVersion>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Demographics Data.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="2" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output26" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Demographics data</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="3bc2fd6f-d44d-4371-a786-f823b51712d4" />
+      <Telemetry>
+        <PreviousWorkflowId value="7fe0e710-2c88-4842-879e-23876427fd50" />
+        <OriginWorkflowId value="07bd29c6-343d-40a5-ba0d-2dfa2c87bc61" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
