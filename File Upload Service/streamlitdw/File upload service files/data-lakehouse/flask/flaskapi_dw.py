@@ -9,8 +9,8 @@ app = Flask(__name__)
 
 # minio details
 MINIO_URL = "10.137.0.149:9000"
-ACCESS_KEY = os.getenv('AWS_ACCESS_KEY_ID') #"oMRermz5wLf474preMdK"  # # Need to call this from env not hardcode 
-SECRET_KEY = os.getenv('AWS_SECRET_ACCESS_KEY') #"Z0MyCwVdTu8r2O9SV7wbyZ3tGjJEd0jjDeO5rbn"  # Need to call this from env not hardcode 
+ACCESS_KEY = os.getenv('AWS_ACCESS_KEY_ID') 
+SECRET_KEY = os.getenv('AWS_SECRET_ACCESS_KEY') 
 BUCKET_NAME = "file-upload-service-sl"
 
 # Initialise Mini

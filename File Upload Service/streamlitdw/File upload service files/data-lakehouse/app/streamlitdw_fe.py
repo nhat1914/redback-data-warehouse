@@ -5,12 +5,23 @@ from dotenv import load_dotenv
 import io
 import os
 
-# TEMP Set up MinIO 
+
+# Load environment variables
+load_dotenv()
+
+# Check the environment variables 
+access_key = os.getenv('AWS_ACCESS_KEY_ID')
+secret_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+
+# st.write("Access Key ID:", access_key)
+# st.write("Secret Access Key:", secret_key)
+
+# Set up MinIO client using the loaded environment variables
 minio_client = Minio(
-    "10.137.0.149:9000",
-    access_key= os.getenv('AWS_ACCESS_KEY_ID'), #"oMRermz5wLf474preMdK", # need to environ these 
-    secret_key= os.getenv('AWS_SECRET_ACCESS_KEY'), # need to environ these
-    secure=False
+    "10.137.0.149:9000",  # MinIO server address
+    access_key=access_key,  
+    secret_key=secret_key,  
+    secure=False  
 )
 
 bucket_name = "file-upload-service-sl"
