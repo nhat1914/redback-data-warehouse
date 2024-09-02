@@ -1,0 +1,602 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2023.1">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">F:\S734\T1 2024\SIT782 Team Project (B) - Execution and Delivery\Customer Raw Data.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Customer Raw Data.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PEASCST1" source="Formula: IIF(IsNull([_CurrentField_]),0,[_CurrentField_])" type="Int32" />
+            <Field name="BPACSZ" source="Formula: IIF(IsNull([_CurrentField_]),0,[_CurrentField_])" type="Int64" />
+            <Field name="BMIARMC" size="2147483647" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="BMXSAD2" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="MGAPHAND" size="2147483647" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="MGATHAND" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="MGXH1T1" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="OHX02TC" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="OHX17TC" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="OHX30TC" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="OHX31TC" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="CSXEXCMT" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="CSQ241" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="CSQ260G" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="CSXNART" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="CSXNARG" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="DMQMILIZ" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="DMDMARTL" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="FIALANG" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="DMDHRBR4" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="DMDHREDU" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="INDHHIN2" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="SEQN" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="LBXSCH" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="PHAALCHR" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="PHAALCMN" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="LBDHDD" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="LBDHDDSI" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="LBXHA" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="LBDHI" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="LBXIN" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="GTDBL2MN" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="LBDBPBSI" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="Left_Left_Right_SEQN" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="DR1DRSTZ" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="DR1DAY" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="DBQ095Z" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="DBD100" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="DR1TPROT" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="DR1TCARB" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="DR1BWATZ" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="Right_SEQN" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="RXDUSE" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="RXDDRUG" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="RXDDRGID" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="RXQSEEN" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="RXDDAYS" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="RXDRSC1" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="RXDRSC3" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="RXDCOUNT" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="MCQ080E" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="MCQ080" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="OHQ610" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="OHQ612" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="OHQ614" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="OSQ040BH" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="SXQ627" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="SXD630" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="WHD010" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="WHD020" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="WHQ030" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="WHQ040" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+            <Field name="WHD050" size="254" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings>
+        <Position x="198" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Check Box (135)">True</Value>
+          <Value name="Check Box (136)">True</Value>
+          <Value name="List Box (11)">"PEASCST1","BPACSZ","BMIARMC","BMXSAD2","MGAPHAND","MGATHAND","MGXH1T1","OHX02TC","OHX17TC","OHX30TC","OHX31TC","CSXEXCMT","CSQ241","CSQ260G","CSXNART","CSXNARG","DMQMILIZ","DMDMARTL","FIALANG","DMDHRBR4","DMDHREDU","INDHHIN2","SEQN","LBXSCH","PHAALCHR","PHAALCMN","LBDHDD","LBDHDDSI","LBXHA","LBDHI","LBXIN","GTDBL2MN","LBDBPBSI","Left_Left_Right_SEQN","DR1DRSTZ","DR1DAY","DBQ095Z","DBD100","DR1TPROT","DR1TCARB","DR1BWATZ","Right_SEQN","RXDUSE","RXDDRUG","RXDDRGID","RXQSEEN","RXDDAYS","RXDRSC1","RXDRSC3","RXDCOUNT","MCQ080E","MCQ080","OHQ610","OHQ612","OHQ614","OSQ040BH","SXQ627","SXD630","WHD010","WHD020","WHQ030","WHQ040","WHD050"</Value>
+          <Value name="Check Box (84)">True</Value>
+          <Value name="Check Box (117)">True</Value>
+          <Value name="Check Box (15)">True</Value>
+          <Value name="Check Box (109)">False</Value>
+          <Value name="Check Box (122)">True</Value>
+          <Value name="Check Box (53)">False</Value>
+          <Value name="Check Box (58)">False</Value>
+          <Value name="Check Box (70)">False</Value>
+          <Value name="Check Box (77)">False</Value>
+          <Value name="Drop Down (81)">upper</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output26">
+          <RecordInfo>
+            <Field name="PEASCST1" source="Formula: IIF(IsNull([_CurrentField_]),0,[_CurrentField_])" type="Int32" />
+            <Field name="BPACSZ" source="Formula: IIF(IsNull([_CurrentField_]),0,[_CurrentField_])" type="Int64" />
+            <Field name="BMIARMC" size="2147483647" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="BMXSAD2" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="MGAPHAND" size="2147483647" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="MGATHAND" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="MGXH1T1" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="OHX02TC" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="OHX17TC" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="OHX30TC" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="OHX31TC" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="CSXEXCMT" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="CSQ241" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="CSQ260G" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="CSXNART" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="CSXNARG" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="DMQMILIZ" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="DMDMARTL" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="FIALANG" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="DMDHRBR4" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="DMDHREDU" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="INDHHIN2" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="SEQN" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="LBXSCH" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="PHAALCHR" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="PHAALCMN" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="LBDHDD" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="LBDHDDSI" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="LBXHA" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="LBDHI" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="LBXIN" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="GTDBL2MN" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="LBDBPBSI" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="Left_Left_Right_SEQN" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="DR1DRSTZ" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="DR1DAY" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="DBQ095Z" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="DBD100" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="DR1TPROT" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="DR1TCARB" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="DR1BWATZ" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="Right_SEQN" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="RXDUSE" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="RXDDRUG" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="RXDDRGID" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="RXQSEEN" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="RXDDAYS" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="RXDRSC1" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="RXDRSC3" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="RXDCOUNT" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="MCQ080E" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="MCQ080" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="OHQ610" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="OHQ612" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="OHQ614" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="OSQ040BH" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="SXQ627" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="SXD630" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="WHD010" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="WHD020" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="WHQ030" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="WHQ040" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+            <Field name="WHD050" size="254" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="318" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="PEASCST1" selected="True" />
+            <SelectField field="BPACSZ" selected="False" />
+            <SelectField field="BMXSAD2" selected="False" type="Int64" size="8" />
+            <SelectField field="DR1DAY" selected="False" type="Int64" size="8" />
+            <SelectField field="DBQ095Z" selected="False" type="Int64" size="8" />
+            <SelectField field="DBD100" selected="False" />
+            <SelectField field="DR1TPROT" selected="False" />
+            <SelectField field="DR1TCARB" selected="False" />
+            <SelectField field="DR1BWATZ" selected="False" />
+            <SelectField field="Right_SEQN" selected="False" />
+            <SelectField field="RXDUSE" selected="False" />
+            <SelectField field="RXDDRUG" selected="False" />
+            <SelectField field="RXDDRGID" selected="False" />
+            <SelectField field="RXQSEEN" selected="False" />
+            <SelectField field="RXDDAYS" selected="False" />
+            <SelectField field="RXDRSC1" selected="False" />
+            <SelectField field="RXDRSC3" selected="False" />
+            <SelectField field="RXDCOUNT" selected="False" />
+            <SelectField field="MCQ080E" selected="False" />
+            <SelectField field="MCQ080" selected="False" />
+            <SelectField field="OHQ610" selected="False" />
+            <SelectField field="OHQ612" selected="False" />
+            <SelectField field="OHQ614" selected="False" />
+            <SelectField field="OSQ040BH" selected="False" />
+            <SelectField field="SXQ627" selected="False" />
+            <SelectField field="SXD630" selected="False" />
+            <SelectField field="WHD010" selected="False" />
+            <SelectField field="WHD020" selected="False" />
+            <SelectField field="WHQ030" selected="False" />
+            <SelectField field="WHQ040" selected="False" />
+            <SelectField field="DR1DRSTZ" selected="False" />
+            <SelectField field="BMIARMC" selected="False" />
+            <SelectField field="Left_Left_Right_SEQN" selected="False" />
+            <SelectField field="WHD050" selected="False" />
+            <SelectField field="MGAPHAND" selected="False" />
+            <SelectField field="MGATHAND" selected="False" />
+            <SelectField field="MGXH1T1" selected="False" />
+            <SelectField field="OHX02TC" selected="False" />
+            <SelectField field="OHX17TC" selected="False" />
+            <SelectField field="OHX30TC" selected="False" />
+            <SelectField field="OHX31TC" selected="False" />
+            <SelectField field="CSXEXCMT" selected="False" />
+            <SelectField field="CSQ241" selected="False" />
+            <SelectField field="CSQ260G" selected="False" />
+            <SelectField field="CSXNART" selected="False" />
+            <SelectField field="CSXNARG" selected="False" />
+            <SelectField field="DMQMILIZ" selected="False" />
+            <SelectField field="DMDMARTL" selected="True" type="Int64" size="8" />
+            <SelectField field="FIALANG" selected="False" />
+            <SelectField field="DMDHRBR4" selected="False" />
+            <SelectField field="DMDHREDU" selected="False" />
+            <SelectField field="INDHHIN2" selected="True" type="Int64" size="8" />
+            <SelectField field="SEQN" selected="False" />
+            <SelectField field="LBXSCH" selected="False" />
+            <SelectField field="PHAALCHR" selected="False" />
+            <SelectField field="PHAALCMN" selected="False" />
+            <SelectField field="LBDHDD" selected="False" />
+            <SelectField field="LBDHDDSI" selected="False" />
+            <SelectField field="LBXHA" selected="False" />
+            <SelectField field="LBDHI" selected="False" />
+            <SelectField field="LBXIN" selected="False" />
+            <SelectField field="LBDBPBSI" selected="False" />
+            <SelectField field="GTDBL2MN" selected="False" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PEASCST1" source="Formula: IIF(IsNull([_CurrentField_]),0,[_CurrentField_])" type="Int32" />
+            <Field name="DMDMARTL" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="Int64" />
+            <Field name="INDHHIN2" source="Formula: IF !IsNull([_CurrentField_]) THEN &#xA;  REGEX_REPLACE([_CurrentField_],'\s+','')&#xA;ELSE [_CurrentField_]&#xA;ENDIF" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="438" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="PEASCST1" action="Avg" rename="Avg_PEASCST1" />
+            <SummarizeField field="DMDMARTL" action="Avg" rename="Avg_DMDMARTL" />
+            <SummarizeField field="INDHHIN2" action="Avg" rename="Avg_INDHHIN2" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Avg_PEASCST1" source="Summarize: Avg - PEASCST1" type="Double" />
+            <Field name="Avg_DMDMARTL" source="Summarize: Avg - DMDMARTL" type="Double" />
+            <Field name="Avg_INDHHIN2" source="Summarize: Avg - INDHHIN2" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="PlotlyCharting">
+        <Position x="546" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ChartingFields>
+            <Traces json:Array="true" xmlns:json="http://james.newtonking.com/projects/json">
+              <type>bar</type>
+              <mode>markers</mode>
+              <visible>true</visible>
+              <orientation>v</orientation>
+              <decreasing>
+                <line>
+                  <color>#7f7f7f</color>
+                </line>
+                <fillcolor>rgba(127, 127, 127, 0.5)</fillcolor>
+              </decreasing>
+              <increasing>
+                <line>
+                  <color>#17becf</color>
+                </line>
+                <fillcolor>rgba(23, 190, 207, 0.5)</fillcolor>
+              </increasing>
+              <autocolorscale>true</autocolorscale>
+              <boxpoints>false</boxpoints>
+              <xsrc>Avg_PEASCST1</xsrc>
+              <aggregationField>xsrc</aggregationField>
+              <aggregationFunction>count</aggregationFunction>
+              <aggregationFieldName>Avg_PEASCST1</aggregationFieldName>
+              <ysrc>Avg_DMDMARTL</ysrc>
+            </Traces>
+            <Layout>
+              <title>
+                <text>
+                </text>
+              </title>
+              <font>
+                <family>sans-serif</family>
+              </font>
+              <autosize>false</autosize>
+              <width>700</width>
+              <height>849</height>
+              <showlegend>true</showlegend>
+              <hovermode>closest</hovermode>
+              <xaxis>
+                <range>-1.4312537159787522</range>
+                <range>7.7590334226346007</range>
+                <autorange>false</autorange>
+                <title>
+                  <text>Avg_PEASCST1</text>
+                </title>
+                <type>category</type>
+              </xaxis>
+              <yaxis>
+                <range>-2.3738976216132261</range>
+                <range>6.8163895170001112</range>
+                <autorange>false</autorange>
+                <title>
+                  <text>Avg_DMDMARTL</text>
+                </title>
+                <type>linear</type>
+              </yaxis>
+            </Layout>
+          </ChartingFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Chart" size="1073741823" source="Report:Chart:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="ComposerInteractiveCharting" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerLayout.PortfolioComposerLayout">
+        <Position x="654" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupingMode>PerRecord</GroupingMode>
+          <PreserveSourceFields value="False" />
+          <Orientation>H</Orientation>
+          <Separator>Continuous</Separator>
+          <Width>100%</Width>
+          <Height />
+          <BorderStyle Enabled="false" Color="#000000" Width="2" />
+          <SeparatorStyle Enabled="false" Color="#000000" Width="1" />
+          <Padding>0</Padding>
+          <LayoutFields orderChanged="False">
+            <Field name="Chart" selected="True" Alignment="Center" />
+          </LayoutFields>
+          <MergeIntoTable value="False" />
+          <SectionNameForGroup />
+          <SectionNameForAllRecords />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Horizontal Layout
+Each Individual Record</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Layout" size="1073741823" source="Report:Layout:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerLayoutPlugin" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+        <Position x="762" y="90" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Text Box (8)</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerRender.PortfolioComposerRender">
+        <Position x="774" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFileType>pdf</TempFileType>
+          <BatchMode value="False" />
+          <DataField>Layout</DataField>
+          <Separator>Continuous</Separator>
+          <EmbedDependencies value="False" />
+          <ShowHeader value="False" />
+          <ShowFooter value="False" />
+          <PortraitMode value="True" />
+          <PaperType Width="612" Height="792" Left="36" Right="36" Top="36" Bottom="36" />
+          <DefaultStyles>
+            <Style Name="TextStyle" FontName="Arial" FontSize="14" Justify="Left" ForeColor="#000000" Locale="1033" />
+          </DefaultStyles>
+          <PNGResolution>1</PNGResolution>
+          <PNGLargerAction>squeeze</PNGLargerAction>
+          <PNGLargerThanPageChoice>warning</PNGLargerThanPageChoice>
+          <PNGTransparentBG value="False" />
+          <PNGBackColor value="#ffffff" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerRenderPlugin" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="2" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output26" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="8" Connection="Question" />
+      <Destination ToolID="9" Connection="Question" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Text Box (8)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Blood Pressure and  Marital Status</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="d3847415-1356-4144-b0cc-76f7d713ce4d" />
+      <Telemetry>
+        <PreviousWorkflowId value="1c7e7109-4d90-4960-b2b6-c67de03d3431" />
+        <OriginWorkflowId value="1c7e7109-4d90-4960-b2b6-c67de03d3431" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (7)</Name>
+          <ToolId value="7" />
+          <Questions>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>Blood Pressure v/s Marital Status</Description>
+              <Name>Text Box (8)</Name>
+              <ToolId value="8" />
+              <Default />
+              <Password value="False" />
+              <Multiline value="False" />
+              <Hidden value="False" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Wizard</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="2" Selected="True" />
+        <Tool ToolId="5" Selected="True" />
+        <Tool ToolId="9" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>
