@@ -1,3 +1,0 @@
-streamlit==1.25.0
-minio==7.1.11
-python-dotenv==1.0.0
