@@ -1,19 +1,33 @@
+# Ensure you have env file containing details for dremio in your working directory before running this script
+# When running the script using: python pipeline.py
+# Add a space then a url for the csv files being uploaded to dremio. Each subsequent url should be separated by a space.
+
 import requests
 import pandas as pd
 import sqlite3
 import getpass
 import time
+from dotenv import load_dotenv
+import os
+import argparse
 
-# List of CSV file URLs from GitHub
-csv_urls = [
-    'https://raw.githubusercontent.com/Redback-Operations/redback-fit-sports-performance/main/Cycling%20Analysis/data/extended_activities.csv'
-]
+# Load environment variables from .env file
+load_dotenv()
 
-# CHANGE THESE FOR USE CASE
-dremio_url = input('Enter the Dremio URL: ')
-username = input('Enter the Dremio username: ')
-password = getpass.getpass(prompt='Enter your Dremio password: ')
-source = input('Enter the Dremio source: ')
+# Set up argument parsing
+parser = argparse.ArgumentParser(description='Process CSV URLs.')
+parser.add_argument('csv_urls', nargs='+', help='List of CSV file URLs')
+args = parser.parse_args()
+
+# Get CSV URLs from command line arguments
+csv_urls = args.csv_urls
+
+# Get environment variables
+dremio_url = os.getenv('DREMIO_URL')
+username = os.getenv('DREMIO_USERNAME')
+password = os.getenv('DREMIO_PASSWORD')
+source = os.getenv('DREMIO_SOURCE')
+
 chunk_size = 50 * 1024 * 1024  # 50MB chunk size (change as needed)
 
 # Authenticate and get token
