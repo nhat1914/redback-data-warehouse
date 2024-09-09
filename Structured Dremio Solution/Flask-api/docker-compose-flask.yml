@@ -9,6 +9,7 @@ services:
       - "5000:5000"
     env_file:
       - api.env
+    container_name: structured-solution-api
     networks:
       - iceberg_env
 
