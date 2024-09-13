@@ -1,4 +1,7 @@
 class Config:
-    MONGO_URI = "mongodb://admin:project1@10.137.0.149:27017/?authSource=admin"
+     # Replace the placeholder with your actual MongoDB URI
+    MONGO_URI = "mongodb://<username>:<password>@<host>:<port>/?authSource=admin"
+    
+    # Replace the placeholder with your actual database name
     DB_NAME = "sample_data"
     
