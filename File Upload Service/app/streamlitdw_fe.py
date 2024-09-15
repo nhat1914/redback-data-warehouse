@@ -24,7 +24,7 @@ minio_client = Minio(
 bucket_name = "file-upload-service-sl"
 
 def validate_filename(name):
-    # Ensure the name is alphanumeric (you can expand this with more rules if needed)
+    # Ensure the the filename is alphanumeric. Possibly may add rules here.
     return name.isalnum()
 
 def generate_custom_filename(project, base_name, original_filename):
