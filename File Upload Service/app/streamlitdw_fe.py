@@ -14,6 +14,10 @@ load_dotenv()
 access_key = os.getenv('AWS_ACCESS_KEY_ID')
 secret_key = os.getenv('AWS_SECRET_ACCESS_KEY')
 
+# Check if the env variables are not none before setting them
+if access_key is None or secret_key is None:
+    raise ValueError("MinIO credentials are empty, these need to be set to continue. Check .env file in virtual machine.")
+
 # Set up MinIO client using the loaded environment variables
 minio_client = Minio(
     "10.137.0.149:9000",  # MinIO server address
