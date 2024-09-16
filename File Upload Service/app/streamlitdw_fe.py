@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import io
 import os
 import datetime
+import subprocess  # For triggering ETL pipeline
 
 # Load environment variables
 load_dotenv()
@@ -21,10 +22,10 @@ minio_client = Minio(
     secure=False  
 )
 
-bucket_name = "file-upload-service-sl"
+bucket_name_bronze = "dw-bucket-bronze"
 
 def validate_filename(name):
-    # Ensure the name is alphanumeric (you can expand this with more rules if needed)
+    # Ensure the filename is alphanumeric. Possibly may add rules here.
     return name.isalnum()
 
 def generate_custom_filename(project, base_name, original_filename):
@@ -35,7 +36,7 @@ def generate_custom_filename(project, base_name, original_filename):
     custom_filename = f"{project}/{base_name}_{date_stamp}.{file_extension}"  # Use project as folder prefix
     return custom_filename
 
-def upload_to_minio(file, filename):
+def upload_to_minio(file, filename, bucket_name):
     try:
         # Convert the uploaded file to bytes
         data = file.read()
@@ -49,6 +50,15 @@ def upload_to_minio(file, filename):
     except S3Error as e:
         st.error(f"Failed to upload {filename} to Data Warehouse: {e}")
 
+def trigger_etl(preprocessing_option):
+    """Trigger the ETL pipeline with the selected preprocessing option."""
+    try:
+        # Run the ETL script as a subprocess
+        subprocess.run(["python", "etl_pipeline.py", preprocessing_option], check=True)
+        st.success("ETL pipeline executed successfully.")
+    except subprocess.CalledProcessError as e:
+        st.error(f"Failed to execute ETL pipeline: {e}")
+
 def main():
     st.title("File Upload to Redback Data Warehouse Server")
 
@@ -57,6 +67,13 @@ def main():
 
     # File uploader
     uploaded_file = st.file_uploader("Choose a file", type=["csv", "txt", "xlsx", "json"])
+
+    # Preprocessing selection dropdown
+    preprocessing_option = st.selectbox(
+        "Preprocessing (optional)",
+        options=["No Pre-processing", "Data Clean Up", "Preprocessing for Machine Learning"],
+        help="Choose a preprocessing option for the uploaded data."
+    )
 
     if uploaded_file is not None:
         base_name = st.text_input("Enter base name for the file:")
@@ -70,7 +87,12 @@ def main():
             st.write(f"**File size:** {uploaded_file.size / (1024 * 1024):.2f} MB")
 
             if st.button("Upload to Data Warehouse"):
-                upload_to_minio(uploaded_file, custom_filename)
+                # Upload raw file to Bronze
+                upload_to_minio(uploaded_file, custom_filename, bucket_name_bronze)
+                # Display selected preprocessing option
+                st.write(f"Selected preprocessing option: {preprocessing_option}")
+                # Trigger ETL pipeline with the selected preprocessing option
+                trigger_etl(preprocessing_option)
         else:
             st.warning("Please enter a valid base name. Only alphanumeric characters are allowed.")
 
