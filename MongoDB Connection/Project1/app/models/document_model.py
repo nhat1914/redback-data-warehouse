@@ -1,7 +1,7 @@
 from bson.objectid import ObjectId
 from app import db 
 # Get the collection name from environment variables
-collection_name = "data"
+collection_name = "sales"
 
 class DocumentModel:
     @staticmethod
