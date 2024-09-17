@@ -11,6 +11,7 @@ import numpy as np
 import pyzbar.pyzbar as pyzbar
 import zipfile
 import sqlite3
+import bcrypt
 import pandas as pd
 from PIL import ImageDraw, ImageFont
 
@@ -187,11 +188,17 @@ def download_all_qr_codes():
     zip_buffer.seek(0)
     return zip_buffer
 
+def check_password(stored_password, provided_password):
+    # Checking if the provided password matches the stored hashed password
+    return bcrypt.checkpw(provided_password.encode('utf-8'), stored_password.encode('utf-8'))
+
 # Function to update staff password
 def update_staff_password(username, new_password):
+    # Hash the new password before updating it in the database
+    hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("UPDATE staff SET password=? WHERE username=?", (new_password, username))
+    cursor.execute("UPDATE staff SET password=? WHERE username=?", (hashed_password, username))
     conn.commit()
     conn.close()
 
@@ -269,17 +276,30 @@ with tabs[2]:
             if login_button:
                 conn = get_db_connection()
                 cursor = conn.cursor()
-                cursor.execute("SELECT * FROM staff WHERE username=? AND password=?", (username, password))
+                cursor.execute("SELECT * FROM staff WHERE username=? ", (username, ))
                 staff = cursor.fetchone()
 
-                if staff:
-                    st.session_state['logged_in'] = True
-                    st.session_state['username'] = staff[1]
-                    st.session_state['role'] = staff[3]  # Store the role
 
-                    st.success(f"Login successful! Welcome, {staff[1]}")
+                if staff:
+                    stored_password = staff[2]  # Assuming password is stored in the 3rd column (index 2)
+                    if check_password(stored_password, password):
+                        st.session_state['logged_in'] = True
+                        st.session_state['username'] = staff[1]
+                        st.session_state['role'] = staff[3]  # Store the role
+                        st.success(f"Login successful! Welcome, {staff[1]}")
+                    else:
+                        st.error("Invalid login details")
                 else:
                     st.error("Invalid login details")
+
+                # if staff:
+                #     st.session_state['logged_in'] = True
+                #     st.session_state['username'] = staff[1]
+                #     st.session_state['role'] = staff[3]  # Store the role
+
+                #     st.success(f"Login successful! Welcome, {staff[1]}")
+                # else:
+                #     st.error("Invalid login details")
 
     # If logged in, hide login form and show admin functionalities
     if st.session_state.get('logged_in', False):
@@ -297,15 +317,33 @@ with tabs[2]:
                 new_password = st.text_input("New staff password", type="password", key="new_password")
                 new_role = st.selectbox("Role", ['user', 'admin'], key="new_role")
 
+                # if st.button("Sign up new staff", key="sign_up_staff"):
+                #     conn = get_db_connection()
+                #     cursor = conn.cursor()
+                #     cursor.execute('''
+                #         INSERT INTO staff (username, password, role) VALUES (?, ?, ?)
+                #     ''', (new_username, new_password, new_role))
+                #     conn.commit()
+                #     conn.close()
+                #     st.success(f"New staff member '{new_username}' added successfully!")
+
                 if st.button("Sign up new staff", key="sign_up_staff"):
-                    conn = get_db_connection()
-                    cursor = conn.cursor()
-                    cursor.execute('''
-                        INSERT INTO staff (username, password, role) VALUES (?, ?, ?)
-                    ''', (new_username, new_password, new_role))
-                    conn.commit()
-                    conn.close()
-                    st.success(f"New staff member '{new_username}' added successfully!")
+                    if new_username and new_password:
+                        # Hash the new staff password before saving to database
+                        hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+                        
+                        conn = get_db_connection()
+                        cursor = conn.cursor()
+                        cursor.execute('''
+                            INSERT INTO staff (username, password, role) VALUES (?, ?, ?)
+                        ''', (new_username, hashed_password, new_role))
+                        conn.commit()
+                        conn.close()
+                        st.success(f"New staff member '{new_username}' added successfully!")
+                    else:
+                        st.error("Please provide both username and password.")
+
+
 
             # 2. Expandable section for Removing Staff Members
             with st.expander("Remove a Staff Member"):

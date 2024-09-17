@@ -6,3 +6,4 @@ numpy
 pyzbar
 pandas
 python-dotenv
+bcrypt
