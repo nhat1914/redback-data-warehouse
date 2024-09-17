@@ -279,9 +279,8 @@ with tabs[2]:
                 cursor.execute("SELECT * FROM staff WHERE username=? ", (username, ))
                 staff = cursor.fetchone()
 
-
                 if staff:
-                    stored_password = staff[2]  # Assuming password is stored in the 3rd column (index 2)
+                    stored_password = staff[2]  
                     if check_password(stored_password, password):
                         st.session_state['logged_in'] = True
                         st.session_state['username'] = staff[1]
@@ -292,15 +291,6 @@ with tabs[2]:
                 else:
                     st.error("Invalid login details")
 
-                # if staff:
-                #     st.session_state['logged_in'] = True
-                #     st.session_state['username'] = staff[1]
-                #     st.session_state['role'] = staff[3]  # Store the role
-
-                #     st.success(f"Login successful! Welcome, {staff[1]}")
-                # else:
-                #     st.error("Invalid login details")
-
     # If logged in, hide login form and show admin functionalities
     if st.session_state.get('logged_in', False):
         st.write(f"Logged in as {st.session_state['username']} with role: {st.session_state['role']}")
@@ -309,23 +299,12 @@ with tabs[2]:
         if st.session_state['role'] == 'admin':
             st.success("You have admin access.")
 
-
             # 1. Expandable section for Signing Up New Staff Members
             with st.expander("Sign up New Staff Member"):
                 st.subheader("Sign up New Staff Member")
                 new_username = st.text_input("New staff username", key="new_username")
                 new_password = st.text_input("New staff password", type="password", key="new_password")
                 new_role = st.selectbox("Role", ['user', 'admin'], key="new_role")
-
-                # if st.button("Sign up new staff", key="sign_up_staff"):
-                #     conn = get_db_connection()
-                #     cursor = conn.cursor()
-                #     cursor.execute('''
-                #         INSERT INTO staff (username, password, role) VALUES (?, ?, ?)
-                #     ''', (new_username, new_password, new_role))
-                #     conn.commit()
-                #     conn.close()
-                #     st.success(f"New staff member '{new_username}' added successfully!")
 
                 if st.button("Sign up new staff", key="sign_up_staff"):
                     if new_username and new_password:
@@ -342,8 +321,6 @@ with tabs[2]:
                         st.success(f"New staff member '{new_username}' added successfully!")
                     else:
                         st.error("Please provide both username and password.")
-
-
 
             # 2. Expandable section for Removing Staff Members
             with st.expander("Remove a Staff Member"):
