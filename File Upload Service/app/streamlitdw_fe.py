@@ -58,10 +58,18 @@ def trigger_etl(preprocessing_option):
     """Trigger the ETL pipeline with the selected preprocessing option."""
     try:
         # Run the ETL script as a subprocess
-        subprocess.run(["python", "etl_pipeline.py", preprocessing_option], check=True)
+        result = subprocess.run(
+            ["python", "etl_pipeline.py", preprocessing_option], 
+            check=True, 
+            stdout=subprocess.PIPE, 
+            stderr=subprocess.PIPE, 
+            text=True
+        )
         st.success("ETL pipeline executed successfully.")
+        st.text(f"ETL Output: {result.stdout}")
     except subprocess.CalledProcessError as e:
         st.error(f"Failed to execute ETL pipeline: {e}")
+        st.text(f"ETL Error Output: {e.stderr}")
 
 def main():
     st.title("File Upload to Redback Data Warehouse Server")

@@ -84,7 +84,9 @@ def apply_basic_cleanup(df):
 
 # Preprocessing option 2
 def apply_ml_preprocessing(df):
-    """Preprocessing for Machine Learning: fill missing values, scale numeric features, etc."""
+    """Preprocessing for Machine Learning: fill missing values, scale numeric features
+        The ML preprocessing aims to pre-perform some of the fundamental changes required to perform ML
+        this function detects datatypes that are able to """
     print("Applying preprocessing for Machine Learning...")
     for column in df.columns:
         # Handle missing values: replace with median
@@ -149,6 +151,6 @@ def main(preprocessing_option):
             process_file(file_name, preprocessing_option)
 
 if __name__ == "__main__":
-    # Example call to main function with user-selected preprocessing option
-    selected_preprocessing_option = "Data Clean Up"  # Replace with user-selected option
+    # Example call to main function with selected preprocessing option
+    selected_preprocessing_option = "Data Clean Up"  # Replace with selected option
     main(selected_preprocessing_option)
