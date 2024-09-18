@@ -16,15 +16,18 @@ minio_client = Minio(
 )
 
 # start up spark session with Delta Lake and Minio
+
 spark = SparkSession.builder \
-    .appName("ETL with Spark, Delta Lake, and MinIO") \
+    .appName("ETL with Spark and Iceberg") \
+    .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions") \
+    .config("spark.sql.catalog.spark_catalog", "org.apache.iceberg.spark.SparkCatalog") \
+    .config("spark.sql.catalog.spark_catalog.type", "hadoop") \
+    .config("spark.sql.catalog.spark_catalog.warehouse", "s3a://dw-bucket-silver/") \
     .config("spark.hadoop.fs.s3a.endpoint", "http://10.137.0.149:9000") \
     .config("spark.hadoop.fs.s3a.access.key", os.getenv('AWS_ACCESS_KEY_ID')) \
     .config("spark.hadoop.fs.s3a.secret.key", os.getenv('AWS_SECRET_ACCESS_KEY')) \
     .config("spark.hadoop.fs.s3a.path.style.access", "true") \
-    .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
-    .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
-    .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
+    .config("spark.jars.packages", "org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.3.0") \
     .getOrCreate()
 
 # for ETL the source will be coming from bronze with original data and the result will be stored in silver.
