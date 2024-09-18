@@ -10,6 +10,8 @@ services:
       - 31010:31010
       - 32010:32010
     container_name: dremio
+    volumes:
+    - dremio-data:/var/lib/dremio
 
   minioserver:
     image: minio/minio
@@ -22,8 +24,8 @@ services:
     container_name: minioserver
     command: server /data --console-address :9001
     volumes:
-      - minio-data:/data
-      - minio-config:/root/.minio
+      - data-lakehouse_minio-data:/data
+      - data-lakehouse_minio-config:/root/.minio
 
   spark_notebook:
     image: jupyter/pyspark-notebook
@@ -65,9 +67,12 @@ services:
     restart: always
 
 volumes:
-  minio-data:
-    driver: local
-  minio-config:
+volumes:
+  data-lakehouse_minio-data:
+    external: true
+  data-lakehouse_minio-config:
+    external: true
+  dremio-data:
     driver: local
 
 networks:

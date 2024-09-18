@@ -1,6 +1,5 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import when, col, mean, stddev, lit, monotonically_increasing_id
-from delta.tables import *
 from minio import Minio
 from minio.error import S3Error
 import os
@@ -15,7 +14,7 @@ minio_client = Minio(
     secure=False  
 )
 
-# start up spark session with Delta Lake and Minio
+# start up spark session with Minio and now Iceberg (instead of Deltatables)
 
 spark = SparkSession.builder \
     .appName("ETL with Spark and Iceberg") \
@@ -107,7 +106,7 @@ def apply_ml_preprocessing(df):
 
 # actually perform the preprocessing, take from bronze apply changes, save to silver.
 def process_file(file_name, preprocessing_option):
-    """Process a file: read from MinIO, transform based on preprocessing option, and write back as a DeltaTable."""
+    """Process a file: read from MinIO, transform based on preprocessing option, and write back as a Iceberg table."""
     try:
         if is_file_processed(file_name):  # Check if file has already been processed
             print(f"File {file_name} has already been processed. Skipping...")
@@ -130,12 +129,9 @@ def process_file(file_name, preprocessing_option):
 
         transformed_df.show()
 
-        # Write the transformed data back to MinIO in Delta format
-        delta_output_path = f"s3a://{destination_bucket}/{file_name.replace('.csv', '')}_processed"
-        transformed_df.write.format("delta").mode("overwrite").save(delta_output_path)
-
-        # Convert existing DeltaTable into a managed Delta table
-        delta_table = DeltaTable.forPath(spark, delta_output_path)
+        # Write the transformed data back to MinIO EDIT: changed this to Iceberg format to fit Dremio
+        iceberg_table_name = f"spark_catalog.default.{file_name.replace('.csv', '')}_processed"
+        transformed_df.writeTo(iceberg_table_name).createOrReplace()
 
         print(f"Processed and saved file: {file_name} to {destination_bucket}")
 

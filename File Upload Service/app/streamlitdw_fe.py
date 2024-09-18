@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import io
 import os
 import datetime
-import subprocess  # For triggering ETL pipeline
+import subprocess 
 
 # Load environment variables
 load_dotenv()
