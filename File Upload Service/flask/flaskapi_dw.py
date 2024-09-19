@@ -15,7 +15,7 @@ MINIO_URL = "10.137.0.149:9000"
 BRONZE_ACCESS_KEY = os.getenv('BRONZE_ACCESS_KEY')  # Access key from the .env file
 BRONZE_SECRET_KEY = os.getenv('BRONZE_SECRET_KEY')  # Secret key from the .env file
 
-# Initialize MinIO with credentials from the .env file
+# MinIO with credentials from the .env file
 minio_client = Minio(
     MINIO_URL,
     access_key=BRONZE_ACCESS_KEY,
@@ -69,7 +69,7 @@ def download_file():
     project = request.args.get('project')
     filename = request.args.get('filename')
 
-    # Ensure you're not concatenating project twice to filename
+    # was having issues with concat filename mishaps
     file_path = filename  # Use the filename as it is
 
     try:
@@ -83,4 +83,4 @@ def download_file():
         return jsonify({"error": str(err)}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)  # Running on port 5000
+    app.run(host='0.0.0.0', port=5000)  # Running on port 5000 IMPORTANT

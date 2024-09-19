@@ -113,7 +113,7 @@ def apply_basic_cleanup(df):
     # Select only the valid columns
     df = df.select(valid_columns)
 
-    # Step 2: Standardize column names
+    # Step 2: Standard column names for governance
     new_column_names = []
     columns_to_drop = []
 
@@ -211,7 +211,7 @@ def process_file(file_name, preprocessing_option):
 
         transformed_df.show()
 
-        # Define the output path in the bucket and use parquet now instead of IB
+        # Define the output path in the bucket and use parquet now instead of IB/Deltatable
         output_file_name = f"{file_name.replace('.csv', '')}_processed.parquet"
         output_path = f"s3a://{destination_bucket}/{output_file_name}"
 

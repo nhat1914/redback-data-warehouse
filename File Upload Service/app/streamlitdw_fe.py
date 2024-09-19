@@ -27,13 +27,13 @@ minio_client = Minio(
     secret_key=secret_key,  
     secure=False  
 )
-
+# define buckets
 bucket_name_bronze = "dw-bucket-bronze"
 bucket_name_silver = "dw-bucket-silver"
 
 def validate_filename(name):
     return name.isalnum()
-
+# generate custom filename with suffix and prefix to enforce a bit of governance 
 def generate_custom_filename(project, base_name, original_filename, add_prefix_suffix):
     file_extension = original_filename.split(".")[-1]
     if add_prefix_suffix:
@@ -82,7 +82,7 @@ def get_file_list(bucket):
         st.error(f"Error retrieving file list from {bucket}: {e}") # added logs because of annoying errors
         return {}
 
-# Function to download file using Flask API
+# Function to download file using Flask API using flaskapi_dw.py
 def download_file(bucket, project, filename):
     try:
         
