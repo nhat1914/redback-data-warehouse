@@ -11,7 +11,7 @@ services:
       - 32010:32010
     container_name: dremio
     volumes:
-    - dremio-data:/var/lib/dremio
+    - fileuploadservice_dremio-data:/var/lib/dremio
 
   minioserver:
     image: minio/minio
@@ -67,13 +67,12 @@ services:
     restart: always
 
 volumes:
-volumes:
   data-lakehouse_minio-data:
     external: true
   data-lakehouse_minio-config:
     external: true
-  dremio-data:
-    driver: local
+  fileuploadservice_dremio-data:
+    external: true
 
 networks:
   default:
