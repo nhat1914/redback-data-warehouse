@@ -11,8 +11,9 @@ import subprocess
 load_dotenv()
 
 # Check the environment variables 
-access_key = os.getenv('AWS_ACCESS_KEY_ID')
-secret_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+access_key=os.getenv('AWS_ACCESS_KEY_ID')
+secret_key=os.getenv('AWS_SECRET_ACCESS_KEY')
+
 
 # Check if the env variables are not none before setting them
 if access_key is None or secret_key is None:
@@ -54,12 +55,12 @@ def upload_to_minio(file, filename, bucket_name):
     except S3Error as e:
         st.error(f"Failed to upload {filename} to Data Warehouse: {e}")
 
-def trigger_etl(preprocessing_option):
+def trigger_etl(file_name, preprocessing_option):
     """Trigger the ETL pipeline with the selected preprocessing option."""
     try:
         # Run the ETL script as a subprocess
         result = subprocess.run(
-            ["python", "etl_pipeline.py", preprocessing_option], 
+            ["python", "etl_pipeline.py", file_name, preprocessing_option], 
             check=True, 
             stdout=subprocess.PIPE, 
             stderr=subprocess.PIPE, 
@@ -104,7 +105,7 @@ def main():
                 # Display selected preprocessing option
                 st.write(f"Selected preprocessing option: {preprocessing_option}")
                 # Trigger ETL pipeline with the selected preprocessing option
-                trigger_etl(preprocessing_option)
+                trigger_etl(custom_filename, preprocessing_option)
         else:
             st.warning("Please enter a valid base name. Only alphanumeric characters are allowed.")
 

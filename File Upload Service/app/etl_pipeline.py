@@ -5,6 +5,8 @@ from minio.error import S3Error
 import os
 import io  # Import for handling byte streams
 from datetime import datetime
+import sys
+
 
 # MinIO creds
 minio_client = Minio(
@@ -18,10 +20,15 @@ minio_client = Minio(
 
 spark = SparkSession.builder \
     .appName("ETL with Spark and Parquet") \
+    .config("spark.jars.packages",
+            "org.apache.hadoop:hadoop-aws:3.3.1,"
+            "com.amazonaws:aws-java-sdk-bundle:1.11.1026") \
+    .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
     .config("spark.hadoop.fs.s3a.endpoint", "http://10.137.0.149:9000") \
     .config("spark.hadoop.fs.s3a.access.key", os.getenv('AWS_ACCESS_KEY_ID')) \
     .config("spark.hadoop.fs.s3a.secret.key", os.getenv('AWS_SECRET_ACCESS_KEY')) \
     .config("spark.hadoop.fs.s3a.path.style.access", "true") \
+    .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false") \
     .getOrCreate()
 
 # for ETL the source will be coming from bronze with original data and the result will be stored in silver.
@@ -38,6 +45,19 @@ def list_files_in_bucket(bucket_name):
     except S3Error as e:
         print(f"Error listing files in bucket {bucket_name}: {e}")
         return []
+
+def is_file_in_bucket(bucket_name, file_name): # add in the check for the file in bronze before silver prepro
+    """Check if a specific file exists in the specified bucket."""
+    try:
+        minio_client.stat_object(bucket_name, file_name)
+        return True
+    except S3Error as e:
+        if e.code == 'NoSuchKey':
+            return False
+        else:
+            print(f"Error checking file in bucket {bucket_name}: {e}")
+            return False
+
 
 def is_file_processed(file_name):
     """Check if a file has already been processed by looking for it in the metadata bucket."""
@@ -86,22 +106,35 @@ def apply_ml_preprocessing(df):
         this function detects datatypes that are able to """
     print("Applying preprocessing for Machine Learning...")
     for column in df.columns:
-        # Handle missing values: replace with median
-        if df.schema[column].dataType.simpleString() in ["double", "int", "float", "long"]:
-            median_value = df.approxQuantile(column, [0.5], 0.0)[0]
-            df = df.na.fill({column: median_value})
+        try:
+            # Get the data type of the column
+            dtype = df.schema[column].dataType
+            
+            # Check if the column is of numeric type
+            if isinstance(dtype, NumericType):
+                # Handle missing values: replace with median
+                median_value = df.approxQuantile(column, [0.5], 0.0)[0]
+                df = df.na.fill({column: median_value})
 
-        # standard deviation scaling
-        mean_val = df.select(mean(col(column))).collect()[0][0]
-        stddev_val = df.select(stddev(col(column))).collect()[0][0]
-        if stddev_val and stddev_val != 0:
-            df = df.withColumn(column, (col(column) - mean_val) / stddev_val)
-
+                # Standard deviation scaling
+                mean_val = df.select(mean(col(column))).collect()[0][0]
+                stddev_val = df.select(stddev(col(column))).collect()[0][0]
+                if stddev_val and stddev_val != 0:
+                    df = df.withColumn(column, (col(column) - mean_val) / stddev_val)
+                else:
+                    print(f"Standard deviation is zero for column: {column}")
+            else:
+                # Skip non-numeric columns
+                print(f"Skipping non-numeric column: {column}")
+        except AnalysisException as e:
+            print(f"AnalysisException for column {column}: {e}")
+        except Exception as e:
+            print(f"Exception for column {column}: {e}")
     return df
 
 # actually perform the preprocessing, take from bronze apply changes, save to silver.
 def process_file(file_name, preprocessing_option):
-    """Process a file: read from MinIO, transform based on preprocessing option, and write back as a Iceberg table."""
+    """Process a file: read from MinIO, transform based on preprocessing option, and write back as a parquet."""
     try:
         if is_file_processed(file_name):  # Check if file has already been processed
             print(f"File {file_name} has already been processed. Skipping...")
@@ -138,16 +171,17 @@ def process_file(file_name, preprocessing_option):
     except Exception as e:
         print(f"Failed to process file {file_name}: {e}")
 
-def main(preprocessing_option):
-    # List all files in the 'dw-bucket-bronze' bucket
-    files_to_process = list_files_in_bucket(source_bucket)
-
-    # Process each file dynamically
-    for file_name in files_to_process:
-        if file_name.endswith('.csv'):  # Ensure only CSV files are processed
-            process_file(file_name, preprocessing_option)
+def main(file_name, preprocessing_option):
+    if file_name.endswith('.csv'):  # Ensure only CSV files are processed
+        process_file(file_name, preprocessing_option)
+    else:
+        print(f"File {file_name} is not a CSV file. Skipping.")
 
 if __name__ == "__main__":
-    # Example call to main function with selected preprocessing option
-    selected_preprocessing_option = "Data Clean Up"  # Replace with selected option
-    main(selected_preprocessing_option)
+    # Read command-line arguments
+    if len(sys.argv) != 3:
+        print("Usage: python etl_pipeline.py <file_name> <preprocessing_option>")
+        sys.exit(1)
+    file_name = sys.argv[1]
+    preprocessing_option = sys.argv[2]
+    main(file_name, preprocessing_option)
