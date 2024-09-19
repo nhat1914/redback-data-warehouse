@@ -34,10 +34,13 @@ bucket_name_silver = "dw-bucket-silver"
 def validate_filename(name):
     return name.isalnum()
 
-def generate_custom_filename(project, base_name, original_filename):
+def generate_custom_filename(project, base_name, original_filename, add_prefix_suffix):
     file_extension = original_filename.split(".")[-1]
-    date_stamp = datetime.datetime.now().strftime("%Y%m%d")
-    custom_filename = f"{project}/{base_name}_{date_stamp}.{file_extension}"
+    if add_prefix_suffix:
+        date_stamp = datetime.datetime.now().strftime("%Y%m%d")
+        custom_filename = f"{project}/{base_name}_{date_stamp}.{file_extension}"
+    else:
+        custom_filename = f"{base_name}.{file_extension}"
     return custom_filename
 
 def upload_to_minio(file, filename, bucket_name):
@@ -67,8 +70,8 @@ def trigger_etl(file_name, preprocessing_option):
 
 def get_file_list(bucket):
     try:
-        # Update the Flask API URL to the correct server IP/hostname
-        api_url = f"http://10.137.0.149:5000/list-files?bucket={bucket}"  # Update with correct Flask API URL
+        # this is the flask api to access the list of data back out of the VM
+        api_url = f"http://10.137.0.149:5000/list-files?bucket={bucket}"  # Updated
         response = requests.get(api_url)
         if response.status_code == 200:
             return response.json()
@@ -76,17 +79,17 @@ def get_file_list(bucket):
             st.error(f"Failed to retrieve file list from {bucket}.")
             return {}
     except Exception as e:
-        st.error(f"Error retrieving file list from {bucket}: {e}")
+        st.error(f"Error retrieving file list from {bucket}: {e}") # added logs because of annoying errors
         return {}
 
 # Function to download file using Flask API
 def download_file(bucket, project, filename):
     try:
-        # If filename already includes the project in the path, don't add it again
+        
         api_url = f"http://10.137.0.149:5000/download-file"
         params = {"bucket": bucket, "project": project, "filename": filename}  # Avoid re-adding the project folder
         response = requests.get(api_url, params=params)
-        st.write(f"API URL: {api_url}, Params: {params}, Status Code: {response.status_code}")  # Log URL and params
+        st.write(f"API URL: {api_url}, Params: {params}, Status Code: {response.status_code}")  # added logs
         if response.status_code == 200:
             return response.content
         else:
@@ -100,7 +103,7 @@ def main():
     st.title("File Upload and Download for Redback Data Warehouse")
 
     # Create tabs for File Upload, Bronze, and Silver
-    tabs = st.tabs(["File Upload & ETL", "View Bronze Files", "View Silver Files"])
+    tabs = st.tabs(["File Upload & ETL", "View Original Files", "View Pre-processed Files"])
 
     # Tab 1: File Upload & ETL
     with tabs[0]:
@@ -119,12 +122,16 @@ def main():
             help="Choose a preprocessing option for the uploaded data."
         )
 
+        # box for enabling/disabling prefix and suffix
+        add_prefix_suffix = st.checkbox("Add project as prefix and date as suffix to filename (to overwrite existing files)", value=True)
+
+
         if uploaded_file is not None:
             base_name = st.text_input("Enter base name for the file:")
 
             if base_name and validate_filename(base_name):
                 # Generate the custom filename with the project prefix
-                custom_filename = generate_custom_filename(project, base_name, uploaded_file.name)
+                custom_filename = generate_custom_filename(project, base_name, uploaded_file.name, add_prefix_suffix)
                 # Display file details
                 st.write(f"**Filename:** {custom_filename}")
                 st.write(f"**File type:** {uploaded_file.type}")
