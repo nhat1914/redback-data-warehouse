@@ -9,6 +9,8 @@ import sys
 from pyspark.sql.types import NumericType
 from pyspark.sql.utils import AnalysisException
 import logging
+import re
+
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -89,30 +91,63 @@ def apply_basic_cleanup(df):
     """Basic data clean up: remove rows where all but one column is missing data,
     remove duplicates, remove entirely blank columns, standardize column names,
     add extract date, and unique ID."""
-    print("Applying basic data clean up...")
+    logger.info("Applying basic data clean up...")
 
-    # Remove columns that are entirely blank, null, or empty
-    non_blank_columns = [col_name for col_name in df.columns 
-                         if df.filter(col(col_name).isNotNull() & (col(col_name) != "")).count() > 0]
-    df = df.select(non_blank_columns)
+    # Initialize a list to hold columns that don't cause errors
+    valid_columns = []
 
-    # cleanup column names replace spaces with underscores
-    new_column_names = [re.sub(r'[^0-9a-zA-Z]+', '_', col_name.strip().lower()) for col_name in df.columns]
+    # Step 1: Remove columns that are entirely blank, null, or empty
+    for col_name in df.columns:
+        try:
+            # Check if the column has at least one non-null and non-empty value
+            non_null_count = df.filter(col(col_name).isNotNull() & (col(col_name) != "")).limit(1).count()
+            if non_null_count > 0:
+                valid_columns.append(col_name)
+            else:
+                logger.info(f"Dropping column '{col_name}' as it is entirely blank or null.")
+        except Exception as e:
+            logger.error(f"Error processing column '{col_name}': {e}")
+            logger.info(f"Skipping column '{col_name}' due to error.")
+            continue
+
+    # Select only the valid columns
+    df = df.select(valid_columns)
+
+    # Step 2: Standardize column names
+    new_column_names = []
+    columns_to_drop = []
+
+    for col_name in df.columns:
+        try:
+            # Standardize column name: lowercase, replace special characters with underscores
+            new_col_name = re.sub(r'[^0-9a-zA-Z]+', '_', col_name.strip().lower()).strip('_')
+            new_column_names.append(new_col_name)
+        except Exception as e:
+            logger.error(f"Error renaming column '{col_name}': {e}")
+            logger.info(f"Dropping column '{col_name}' due to error.")
+            columns_to_drop.append(col_name)
+
+    # Drop columns that caused errors during renaming
+    if columns_to_drop:
+        df = df.drop(*columns_to_drop)
+        # Remove corresponding names from new_column_names
+        new_column_names = [name for idx, name in enumerate(new_column_names) if df.columns[idx] not in columns_to_drop]
+
+    # Apply new column names
     df = df.toDF(*new_column_names)
 
-    # Calculate the threshold for minimum non-null values per row
-    # Keep rows that have at least two non-null values
-    min_non_null_values = 2
+    # Step 3: Remove rows where all but one column is missing data
+    min_non_null_values = 2  # At least two non-null values required to keep the row
     df = df.dropna(thresh=min_non_null_values)
 
-    # Remove duplicate rows
+    # Step 4: Remove duplicate rows
     df = df.dropDuplicates()
 
-    # Add extract date column
+    # Step 5: Add extract date column
     extract_date = datetime.now().strftime('%Y-%m-%d')
     df = df.withColumn("extract_date", lit(extract_date))
 
-    # Add unique ID column
+    # Step 6: Add unique ID column
     df = df.withColumn("unique_id", monotonically_increasing_id())
 
     return df
@@ -122,12 +157,12 @@ def apply_ml_preprocessing(df):
     """Preprocessing for Machine Learning: fill missing values, scale numeric features
         The ML preprocessing aims to pre-perform some of the fundamental changes required to perform ML
         this function detects datatypes that are able to """
-    print("Applying preprocessing for Machine Learning...")
+    logger.info("Applying preprocessing for Machine Learning...")
     for column in df.columns:
         try:
             # Get the data type of the column
             dtype = df.schema[column].dataType
-            
+
             # Check if the column is of numeric type
             if isinstance(dtype, NumericType):
                 # Handle missing values: replace with median
@@ -140,14 +175,15 @@ def apply_ml_preprocessing(df):
                 if stddev_val and stddev_val != 0:
                     df = df.withColumn(column, (col(column) - mean_val) / stddev_val)
                 else:
-                    print(f"Standard deviation is zero for column: {column}")
+                    logger.warning(f"Standard deviation is zero for column: {column}")
             else:
                 # Skip non-numeric columns
-                print(f"Skipping non-numeric column: {column}")
-        except AnalysisException as e:
-            print(f"AnalysisException for column {column}: {e}")
+                logger.info(f"Skipping non-numeric column: {column}")
         except Exception as e:
-            print(f"Exception for column {column}: {e}")
+            # Log the error and continue with the next column
+            logger.error(f"An error occurred while processing column '{column}': {e}")
+            logger.info(f"Skipping column '{column}'")
+            continue
     return df
 
 # actually perform the preprocessing, take from bronze apply changes, save to silver.
