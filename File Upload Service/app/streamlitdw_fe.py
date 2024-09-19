@@ -82,14 +82,15 @@ def get_file_list(bucket):
 # Function to download file using Flask API
 def download_file(bucket, project, filename):
     try:
-        # Update the Flask API URL to the correct server IP/hostname
-        api_url = f"http://10.137.0.149:5000/download-file"  # Update with correct Flask API URL
-        params = {"bucket": bucket, "project": project, "filename": filename}
+        # If filename already includes the project in the path, don't add it again
+        api_url = f"http://10.137.0.149:5000/download-file"
+        params = {"bucket": bucket, "project": project, "filename": filename}  # Avoid re-adding the project folder
         response = requests.get(api_url, params=params)
+        st.write(f"API URL: {api_url}, Params: {params}, Status Code: {response.status_code}")  # Log URL and params
         if response.status_code == 200:
             return response.content
         else:
-            st.error(f"Failed to download file from {bucket}.")
+            st.error(f"Failed to download file from {bucket}. Status Code: {response.status_code}, Error: {response.text}")
             return None
     except Exception as e:
         st.error(f"Error downloading file from {bucket}: {e}")

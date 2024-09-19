@@ -65,27 +65,22 @@ def list_files():
 # Endpoint to download a file from the specified bucket
 @app.route('/download-file', methods=['GET'])
 def download_file():
-    bucket_name = request.args.get('bucket')
+    bucket = request.args.get('bucket')
     project = request.args.get('project')
     filename = request.args.get('filename')
-    
-    # Validate request parameters
-    if bucket_name not in ['dw-bucket-bronze', 'dw-bucket-silver'] or not project or not filename:
-        return jsonify({"error": "Please provide valid 'bucket', 'project', and 'filename' parameters."}), 400
-    
-    file_path = f"{project}/{filename}"
-    
+
+    # Ensure you're not concatenating project twice to filename
+    file_path = filename  # Use the filename as it is
+
     try:
-        data = minio_client.get_object(bucket_name, file_path)
+        data = minio_client.get_object(bucket, file_path)
         return send_file(
             io.BytesIO(data.read()),
-            download_name=filename,
+            download_name=filename.split("/")[-1],
             as_attachment=True
         )
     except S3Error as err:
         return jsonify({"error": str(err)}), 500
-    except Exception as e:
-        return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)  # Running on port 5000
