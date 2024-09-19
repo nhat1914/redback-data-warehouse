@@ -6,6 +6,13 @@ import os
 import io  # Import for handling byte streams
 from datetime import datetime
 import sys
+from pyspark.sql.types import NumericType
+from pyspark.sql.utils import AnalysisException
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 # MinIO creds
@@ -79,24 +86,35 @@ def mark_file_as_processed(file_name):
 
 # preprocessing option 1 - basic cleanup
 def apply_basic_cleanup(df):
-    """Basic data clean up: remove nulls, duplicates, blank columns, add extract date, and unique ID."""
+    """Basic data clean up: remove rows where all but one column is missing data,
+    remove duplicates, remove entirely blank columns, standardize column names,
+    add extract date, and unique ID."""
     print("Applying basic data clean up...")
-    
-    # Remove columns that are entirely blank, null or empty
-    non_blank_columns = [col_name for col_name in df.columns if df.filter(col(col_name).isNotNull() & (col(col_name) != "")).count() > 0]
+
+    # Remove columns that are entirely blank, null, or empty
+    non_blank_columns = [col_name for col_name in df.columns 
+                         if df.filter(col(col_name).isNotNull() & (col(col_name) != "")).count() > 0]
     df = df.select(non_blank_columns)
 
-    # Remove rows with nulls and duplicates
-    df = df.dropna()  # Drop rows with null values
-    df = df.dropDuplicates()  # Remove duplicate rows
-    
+    # cleanup column names replace spaces with underscores
+    new_column_names = [re.sub(r'[^0-9a-zA-Z]+', '_', col_name.strip().lower()) for col_name in df.columns]
+    df = df.toDF(*new_column_names)
+
+    # Calculate the threshold for minimum non-null values per row
+    # Keep rows that have at least two non-null values
+    min_non_null_values = 2
+    df = df.dropna(thresh=min_non_null_values)
+
+    # Remove duplicate rows
+    df = df.dropDuplicates()
+
     # Add extract date column
     extract_date = datetime.now().strftime('%Y-%m-%d')
     df = df.withColumn("extract_date", lit(extract_date))
-    
+
     # Add unique ID column
     df = df.withColumn("unique_id", monotonically_increasing_id())
-    
+
     return df
 
 # Preprocessing option 2
