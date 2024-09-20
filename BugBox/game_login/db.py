@@ -1,5 +1,4 @@
 import sqlite3
-import bcrypt
 
 # Connect to SQLite database
 conn = sqlite3.connect('school_kids.db')
@@ -30,25 +29,9 @@ cursor.execute('''
     )
 ''')
 
-# Function to hash a password using bcrypt
-def hash_password(password):
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-
-# Function to update the staff table with a hashed password
-def insert_admin_user():
-    # Hash the password before inserting it into the database
-    hashed_password = hash_password('dylanBugbox')
-    
-    # Insert the admin user into the staff table
-    cursor.execute('''INSERT INTO staff (username, password, role) VALUES (?, ?, ?)''', ('dylan', hashed_password, 'admin'))
-
-# Check if the 'dylan' admin user already exists
-cursor.execute('SELECT * FROM staff WHERE username = ?', ('dylan',))
-admin_user = cursor.fetchone()
-
-if not admin_user:
-    # If 'dylan' admin doesn't exist, insert it
-    insert_admin_user()
+# Insert the pre-hashed password for the admin user
+hashed_password = "$2b$12$wQ15tkMWRN69.1Lr0qO4KOSl1dkc7GxvsVKQJ9T3AluaMJjTd4Xku"
+cursor.execute('''INSERT INTO staff (username, password, role) VALUES (?, ?, ?)''', ('dylan', hashed_password, 'admin'))
 
 # Commit changes and close connection
 conn.commit()

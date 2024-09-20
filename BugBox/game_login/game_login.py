@@ -184,7 +184,6 @@ def download_all_qr_codes():
             # Add the image to the zip file
             zf.writestr(f"{unique_id}_QRCode.png", buf.read())
 
-
     zip_buffer.seek(0)
     return zip_buffer
 
