@@ -1,4 +1,10 @@
 import sqlite3
+import os
+import bcrypt
+from dotenv import load_dotenv
+load_dotenv()
+hashed_password = bcrypt.hashpw(os.getenv('ADMIN_PASSWORD').encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+# bcrypt.hashpw(os.getenv('ADMIN_PASSWORD').encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
 # Connect to SQLite database
 conn = sqlite3.connect('school_kids.db')
@@ -29,9 +35,17 @@ cursor.execute('''
     )
 ''')
 
-# Insert the pre-hashed password for the admin user
-hashed_password = "$2b$12$wQ15tkMWRN69.1Lr0qO4KOSl1dkc7GxvsVKQJ9T3AluaMJjTd4Xku"
-cursor.execute('''INSERT INTO staff (username, password, role) VALUES (?, ?, ?)''', ('dylan', hashed_password, 'admin'))
+# Check if admin user already exists
+cursor.execute('SELECT COUNT(*) FROM staff WHERE username = ?', ('dylan',))
+admin_exists = cursor.fetchone()[0]
+
+# Insert the pre-hashed password for the admin user if not exists
+if admin_exists == 0:
+    hashed_password = "$2b$12$wQ15tkMWRN69.1Lr0qO4KOSl1dkc7GxvsVKQJ9T3AluaMJjTd4Xku"
+    cursor.execute('''INSERT INTO staff (username, password, role) VALUES (?, ?, ?)''', ('dylan', hashed_password, 'admin'))
+    print("Admin user created.")
+else:
+    print("Admin user already exists.")
 
 # Commit changes and close connection
 conn.commit()

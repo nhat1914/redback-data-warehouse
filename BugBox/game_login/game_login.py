@@ -19,7 +19,7 @@ from PIL import ImageDraw, ImageFont
 st.markdown("<h1 style='text-align: left; color: black;'>Bugbox</h1>", unsafe_allow_html=True)
 
 # Ensure session state is initialized
-if 'logged_in' not in st.session_state:
+if not st.session_state.get('logged_in'):
     st.session_state['logged_in'] = False
 
 # Function to generate a unique ID
@@ -143,49 +143,66 @@ def export_data_to_csv():
 
 # Function to download all QR codes as PNGs
 def download_all_qr_codes():
+    
+    # Ensure the user is an admin before proceeding
+    if st.session_state.get('role') != 'admin':
+        st.error("Unauthorized access. Only admin users can download QR codes.")
+        return None
+    
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT unique_id FROM students")
-    students = cursor.fetchall()
-    conn.close()
+    
+    try:
+        cursor.execute("SELECT unique_id FROM students")
+        students = cursor.fetchall()
+        conn.close()
 
-    zip_buffer = BytesIO()
-    font = ImageFont.load_default()
-    with zipfile.ZipFile(zip_buffer, "w") as zf:
-        for student in students:
-            unique_id = student[0]
-            img = generate_qr_code(unique_id)
+        zip_buffer = BytesIO()
+        font = ImageFont.load_default()
+        with zipfile.ZipFile(zip_buffer, "w") as zf:
+            for student in students:
+                unique_id = student[0]
+                
+             # Sanitize the unique_id to prevent potential security issues
+                sanitized_unique_id = "".join(c for c in unique_id if c.isalnum() or c in "-_")   
+                
+                img = generate_qr_code(sanitized_unique_id)
             
-            # Create a new image with enough space for both the QR code and the caption
-            img_width, img_height = img.size
-            caption_height = 30  # Space for the caption
-            
-            # Create a new blank image (white background) with space for the caption
-            img_with_caption = Image.new('RGB', (img_width, img_height + caption_height), 'white')
-            
-            # Paste the QR code onto the blank image
-            img_with_caption.paste(img, (0, 0))
-            
-            # Create a drawing object to add the caption
-            draw = ImageDraw.Draw(img_with_caption)
-            
-            # Use textbbox to calculate text size and center the caption
-            bbox = draw.textbbox((0, 0), unique_id, font=font)
-            text_width = bbox[2] - bbox[0]
-            
-            # Draw the caption centered below the QR code
-            draw.text(((img_width - text_width) / 2, img_height + 5), unique_id, font=font, fill='black')
-            
-            # Save the image to a buffer
-            buf = BytesIO()
-            img_with_caption.save(buf, format="PNG")
-            buf.seek(0)
-            
-            # Add the image to the zip file
-            zf.writestr(f"{unique_id}_QRCode.png", buf.read())
+                # Create a new image with enough space for both the QR code and the caption
+                img_width, img_height = img.size
+                caption_height = 30  # Space for the caption
+                
+                # Create a new blank image (white background) with space for the caption
+                img_with_caption = Image.new('RGB', (img_width, img_height + caption_height), 'white')
+                
+                # Paste the QR code onto the blank image
+                img_with_caption.paste(img, (0, 0))
+                
+                # Create a drawing object to add the caption
+                draw = ImageDraw.Draw(img_with_caption)
+                
+                # Use textbbox to calculate text size and center the caption
+                bbox = draw.textbbox((0, 0), unique_id, font=font)
+                text_width = bbox[2] - bbox[0]
+                
+                # Draw the caption centered below the QR code
+                draw.text(((img_width - text_width) / 2, img_height + 5), sanitized_unique_id, font=font, fill='black')
+                
+                # Save the image to a buffer
+                buf = BytesIO()
+                img_with_caption.save(buf, format="PNG")
+                buf.seek(0)
+                
+                # Add the image to the zip file
+                zf.writestr(f"{sanitized_unique_id}_QRCode.png", buf.read())
 
-    zip_buffer.seek(0)
-    return zip_buffer
+        zip_buffer.seek(0)
+        return zip_buffer
+
+    except Exception as e:
+        st.error(f"An error occurred while generating QR codes: {e}")
+    finally:
+        conn.close()
 
 def check_password(stored_password, provided_password):
     # Checking if the provided password matches the stored hashed password
@@ -204,7 +221,7 @@ def update_staff_password(username, new_password):
 # Function to view the staff members
 def view_staff_members():
     conn = get_db_connection()
-    df = pd.read_sql_query("SELECT username, role FROM staff", conn)
+    df = pd.read_sql_query("SELECT username , role FROM staff", conn)
     conn.close()
     return df
 
@@ -265,7 +282,7 @@ with tabs[2]:
     st.title("Staff Login")
 
     # Check if the user is logged in
-    if not st.session_state.get('logged_in', False):
+    if not st.session_state['logged_in']:
         # Only display login form if the user is not logged in
         with st.form(key='staff_login_form'):
             username = st.text_input("Username", key="username_staff_login")
@@ -381,15 +398,29 @@ with tabs[2]:
                 else:
                     st.info("No staff members to show.")    
 
+            #6. Add a button to download all QR codes
+            with st.expander("Download QR Code Zip File"):
+                st.subheader("Download All QR Codes Zip File")
+                zip_buffer = download_all_qr_codes()
+                st.download_button(
+                    label="Download All QR Codes",
+                    data=zip_buffer,
+                    file_name='all_qr_codes.zip',
+                    mime='application/zip'
+                )
+                
         else:
             st.info("You are logged in as a regular staff member.")
 
         # Logout button
         if st.button("Logout", key="logout_button"):
+        # if st.session_state['logged_in']:
             # Reset session state on logout
             st.session_state['logged_in'] = False
             st.session_state['username'] = None
             st.session_state['role'] = None
+            # Add a JavaScript snippet to refresh the page
+            st.markdown("<meta http-equiv='refresh' content='0'>", unsafe_allow_html=True)
 
         # Display the student database if logged in
         st.title("Student Database")
@@ -401,15 +432,6 @@ with tabs[2]:
         
         # Add an export button
         export_data_to_csv()
-
-        # Add a button to download all QR codes
-        zip_buffer = download_all_qr_codes()
-        st.download_button(
-            label="Download All QR Codes",
-            data=zip_buffer,
-            file_name='all_qr_codes.zip',
-            mime='application/zip'
-        )
 
 # Tab 4: Recover QR Code
 with tabs[3]:
