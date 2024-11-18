@@ -5,10 +5,14 @@ on:
     types: [opened, synchronize, reopened]
 
 permissions:
-  contents: read
+  contents: write        # Changed from read
   pull-requests: write
   issues: write
   checks: write
+  actions: write        # Added
+  security-events: write # Added
+  discussions: write    # Added
+  statuses: write       # Added
 
 jobs:
   security-scan:
