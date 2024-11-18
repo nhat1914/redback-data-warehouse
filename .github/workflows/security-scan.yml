@@ -345,9 +345,7 @@ jobs:
               if ('${{ steps.check_results.outputs.vulnerabilities_found }}' === 'true') {
                 comment += '⛔ **Critical vulnerabilities detected. Please review and address these security issues before merging.**\n\n'
                 comment += '### Next Steps:\n'
-                comment += '1. Review each critical finding above\n'
-                comment += '2. Apply necessary security fixes\n'
-                comment += '3. Re-run the security scan to verify fixes\n'
+                comment += '1. Review each critical finding above and fix them according to OWASP top 10 mitigations.\n'
               } else {
                 comment += '✅ **No critical security issues detected.**\n\n'
                 comment += 'The code has passed all critical security checks.'
