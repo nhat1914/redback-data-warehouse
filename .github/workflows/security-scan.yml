@@ -5,13 +5,13 @@ on:
     types: [opened, synchronize, reopened]
 
 permissions:
-  contents: write        # Changed from read
+  contents: write        # Changed from read hi
   pull-requests: write
   issues: write
   checks: write
   actions: write        # Added
   security-events: write # Added
-  discussions: write    # Addedss
+  discussions: write    # Added ss
   statuses: write       # Added
 
 jobs:
