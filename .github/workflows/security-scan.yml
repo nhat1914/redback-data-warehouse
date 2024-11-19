@@ -340,7 +340,7 @@ jobs:
         if: always()
         
         with:
-          github-token: ${{ secrets.BEN_DATAWAREHOUSE }}
+          repo-token: ${{ secrets.BEN_DATAWAREHOUSE }}
           script: |
             const fs = require('fs')
             let comment = '## Security Scan Results\n\n'
