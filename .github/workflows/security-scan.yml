@@ -1,4 +1,3 @@
-
 name: Security Scan
 
 on:
@@ -6,15 +5,14 @@ on:
     types: [opened, synchronize, reopened]
     branches: [main]
 
+# Set permissions at workflow level for GITHUB_TOKEN
 permissions:
-  contents: write        # Changed from read hi
+  contents: read
   pull-requests: write
   issues: write
   checks: write
-  actions: write        # Added
-  security-events: write # Added
-  discussions: write    # Added ss
-  statuses: write       # Added
+  security-events: write
+  statuses: write
 
 jobs:
   security-scan:
@@ -346,36 +344,22 @@ jobs:
 
 
       - name: Comment PR
-        uses: actions/github-script@v7
         if: always()
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const fs = require('fs')
-            let comment = '## Security Scan Results\n\n'
-            
-            if ('${{ steps.check_results.outputs.file_exists }}' === 'true') {
-              const scanResults = fs.readFileSync('security-scan-results.txt', 'utf8')
-              comment += '```\n' + scanResults + '\n```\n\n'
-              
-              if ('${{ steps.check_results.outputs.vulnerabilities_found }}' === 'true') {
-                comment += '⛔️ **Critical vulnerabilities detected. Please review and address these security issues before merging.**\n\n'
-                comment += '### Next Steps:\n'
-                comment += '1. Review each critical finding above and fix them according to OWASP top 10 mitigations.\n'
-              } else {
-                comment += '✅ **No critical security issues detected.**\n\n'
-                comment += 'The code has passed all critical security checks.'
-              }
-            } else {
-              comment += '⚠️ **Error: The security scan failed to complete. Please review the workflow logs for more information.'
-            }
-            
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: comment
-            })
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -f security-scan-results.txt ]; then
+            SCAN_RESULTS=$(cat security-scan-results.txt)
+            if grep -q "Critical Security Issues!" security-scan-results.txt; then
+              COMMENT="## Security Scan Results\n\n\`\`\`\n${SCAN_RESULTS}\n\`\`\`\n\n⛔️ **Critical vulnerabilities detected. Please review and address these security issues before merging.**\n\n### Next Steps:\n1. Review each critical finding above and fix them according to OWASP top 10 mitigations.\n"
+            else
+              COMMENT="## Security Scan Results\n\n\`\`\`\n${SCAN_RESULTS}\n\`\`\`\n\n✅ **No critical security issues detected.**\n\nThe code has passed all critical security checks."
+            fi
+          else
+            COMMENT="## Security Scan Results\n\n⚠️ **Error: The security scan failed to complete. Please review the workflow logs for more information.**"
+          fi
+          
+          gh pr comment ${{ github.event.pull_request.number }} --body "$COMMENT"
 
       - name: Fail if critical vulnerabilities found
         if: steps.check_results.outputs.vulnerabilities_found == 'true'
