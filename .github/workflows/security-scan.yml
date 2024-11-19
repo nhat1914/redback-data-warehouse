@@ -324,9 +324,11 @@ jobs:
 
     - name: Comment PR
       if: always()
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         COMMENT_BODY=$(cat security-scan-results.txt)
-        
+        ESCAPED_BODY=$(echo "$COMMENT_BODY" | jq -aRs .)
         if [ "${{ steps.check_results.outputs.vulnerabilities_found }}" == "true" ]; then
           STATUS="⛔ **Critical vulnerabilities detected**"
           NEXT_STEPS=$'\n### Next Steps:\n1. Review each critical finding above and fix them according to OWASP top 10 mitigations.'
@@ -334,12 +336,13 @@ jobs:
           STATUS="✅ **No critical security issues detected**"
           NEXT_STEPS=""
         fi
-        
+        FULL_COMMENT="## Security Scan Results\\n\\n\`\`\`\\n${ESCAPED_BODY}\\n\`\`\`\\n\\n${STATUS}${NEXT_STEPS}"
         curl -X POST \
-          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: Bearer $GH_TOKEN" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
           "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments" \
-          -d @- << EOF
+          -d "{\"body\":\"$FULL_COMMENT\"}"
         {
           "body": "## Security Scan Results\n\n\`\`\`\n${COMMENT_BODY}\n\`\`\`\n\n${STATUS}${NEXT_STEPS}"
         }
