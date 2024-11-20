@@ -40,189 +40,108 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install bandit
+          pip install bandit safety
 
-      - name: Create amir.py
+      - name: Run Security Scan
+        id: security_scan
         run: |
-          cat << 'EOL' > amir.py
-          import subprocess
-          import json
-          import os
-          import re
-          import ast
-          import logging
-          from typing import List, Dict, Any
-          import bandit
-          from bandit.core import manager as bandit_manager
-
-          logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-
-          class AdvancedVulnerabilityScanner:
-              def __init__(self, file_path: str):
-                  self.file_path = file_path
-                  self.vulnerabilities: List[Dict[str, Any]] = []
-                  self.code_lines: List[str] = []
-                  self.ast_tree: ast.AST = None
-                  self.vulnerability_db = self.load_vulnerability_db()
-
-              def load_vulnerability_db(self):
-                  return {
-                      "requests": {"2.25.0": ["CVE-2021-12345"]},
-                      "django": {"2.2.0": ["CVE-2021-67890"]}
-                  }
-
-              def parse_file(self):
-                  logging.info(f"Parsing file: {self.file_path}")
-                  try:
-                      with open(self.file_path, "r", encoding="utf-8") as file:
-                          self.code_lines = file.readlines()
-                          self.ast_tree = ast.parse("".join(self.code_lines))
-                      logging.info(f"File parsed. Total lines: {len(self.code_lines)}")
-                  except Exception as e:
-                      logging.error(f"Error parsing file {self.file_path}: {str(e)}")
-                      raise
-
-              def run_bandit(self):
-                  try:
-                      b_mgr = bandit_manager.BanditManager(bandit.config.BanditConfig(), agg_type="file")
-                      b_mgr.discover_files([self.file_path])
-                      b_mgr.run_tests()
-                      return b_mgr.get_issue_list()
-                  except Exception as e:
-                      logging.error(f"Error running Bandit: {str(e)}")
-                      return []
-
-              def analyze(self):
-                  try:
-                      self.parse_file()
-                      self.check_high_risk_sql_injection()
-                      self.check_hardcoded_secrets()
-                      self.check_dangerous_deserialization()
-                      self.check_command_injection()
-                      self.check_path_traversal()
-                      self.check_high_risk_ssrf()
-
-                      bandit_issues = self.run_bandit()
-                      for issue in bandit_issues:
-                          if issue.severity.lower() == "high":
-                              self.add_vulnerability(
-                                  f"Critical Security Issue ({issue.test_id})",
-                                  issue.text,
-                                  issue.lineno,
-                                  "HIGH",
-                                  issue.confidence
-                              )
-
-                      logging.info("Security analysis completed successfully")
-                  except Exception as e:
-                      logging.error(f"An error occurred during analysis: {str(e)}")
-                      raise
-
-              def generate_report(self):
-                  report = f"\n🔒 Security Scan Results for {self.file_path} 🔒\n"
-                  report += "=" * 50 + "\n"
-                  report += f"Lines of Code Analyzed: {len(self.code_lines)}\n\n"
-                  
-                  high_risk_vulns = [v for v in self.vulnerabilities 
-                                  if v["severity"] == "HIGH" and v["confidence"] in ["HIGH", "MEDIUM"]]
-                  
-                  if high_risk_vulns:
-                      report += f"🚨 Found {len(high_risk_vulns)} Critical Security Issues!\n\n"
-                      for vuln in high_risk_vulns:
-                          report += f"CRITICAL: {vuln['category']}\n"
-                          report += f"Description: {vuln['description']}\n"
-                          report += f"Location: Line {vuln['line_number']}\n"
-                          if vuln.get("code_context"):
-                              report += f"Code: {vuln['code_context']}\n"
-                          report += f"Confidence: {vuln['confidence']}\n"
-                          report += "-" * 40 + "\n"
-                  else:
-                      report += "✅ No critical security issues detected.\n"
-                      
-                  return report
-
-          def main():
-              path = "."
-              scanner = AdvancedVulnerabilityScanner(path)
-              scanner.analyze()
-              report = scanner.generate_report()
-              with open("security-scan-results.txt", "w") as f:
-                  f.write(report)
-
-          if __name__ == "__main__":
-              main()
-          EOL
-
-      - name: Run security scan
-        run: python amir.py
-        continue-on-error: true
-
-      - name: Check for scan results
-        id: check_results
-        run: |
-          if [ -f security-scan-results.txt ]; then
-            echo "file_exists=true" >> $GITHUB_OUTPUT
-            if grep -q "Critical Security Issues!" security-scan-results.txt; then
-              echo "vulnerabilities_found=true" >> $GITHUB_OUTPUT
-              echo "::warning::Critical security vulnerabilities detected"
-            else
-              echo "vulnerabilities_found=false" >> $GITHUB_OUTPUT
-            fi
-          else
-            echo "file_exists=false" >> $GITHUB_OUTPUT
-            echo "::error::Security scan failed to generate results"
+          # Run bandit recursively on all Python files
+          echo "Running Bandit security scan..."
+          bandit -r . -f txt -o bandit-results.txt || true
+          
+          # Run Safety check on requirements
+          if [ -f "requirements.txt" ]; then
+            echo "Checking dependencies with Safety..."
+            safety check -r requirements.txt --full-report --output text > safety-results.txt || true
           fi
-
-      - name: Upload scan results
-        uses: actions/upload-artifact@v4
-        with:
-          name: security-scan-results
-          path: security-scan-results.txt
-          retention-days: 90
+          
+          # Combine results
+          echo "🔒 Security Scan Results" > security-scan-results.txt
+          echo "=========================" >> security-scan-results.txt
+          echo "" >> security-scan-results.txt
+          
+          if [ -f "bandit-results.txt" ]; then
+            echo "Bandit Scan Results:" >> security-scan-results.txt
+            echo "-------------------" >> security-scan-results.txt
+            cat bandit-results.txt >> security-scan-results.txt
+            echo "" >> security-scan-results.txt
+          fi
+          
+          if [ -f "safety-results.txt" ]; then
+            echo "Dependency Check Results:" >> security-scan-results.txt
+            echo "-----------------------" >> security-scan-results.txt
+            cat safety-results.txt >> security-scan-results.txt
+          fi
+          
+          # Check for critical issues
+          if grep -iE "high severity|critical|issue" bandit-results.txt > /dev/null 2>&1; then
+            echo "vulnerabilities_found=true" >> $GITHUB_OUTPUT
+          elif [ -f "safety-results.txt" ] && grep -iE "high severity|critical|vulnerability" safety-results.txt > /dev/null 2>&1; then
+            echo "vulnerabilities_found=true" >> $GITHUB_OUTPUT
+          else
+            echo "vulnerabilities_found=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Create comment body
         id: create-comment
+        if: always()
         run: |
           if [ -f security-scan-results.txt ]; then
             SCAN_RESULTS=$(cat security-scan-results.txt)
-            if grep -q "Critical Security Issues!" security-scan-results.txt; then
-              echo "COMMENT<<EOF" >> $GITHUB_ENV
-              echo "## Security Scan Results" >> $GITHUB_ENV
-              echo "" >> $GITHUB_ENV
+            if [ "${{ steps.security_scan.outputs.vulnerabilities_found }}" == "true" ]; then
+              echo 'comment_body<<EOF' >> $GITHUB_ENV
+              echo '## 🔒 Security Scan Results' >> $GITHUB_ENV
+              echo '' >> $GITHUB_ENV
               echo '```' >> $GITHUB_ENV
               echo "$SCAN_RESULTS" >> $GITHUB_ENV
               echo '```' >> $GITHUB_ENV
-              echo "" >> $GITHUB_ENV
-              echo "⛔️ **Critical vulnerabilities detected. Please review and address these security issues before merging.**" >> $GITHUB_ENV
-              echo "" >> $GITHUB_ENV
-              echo "### Next Steps:" >> $GITHUB_ENV
-              echo "1. Review each critical finding above and fix them according to OWASP top 10 mitigations." >> $GITHUB_ENV
-              echo "EOF" >> $GITHUB_ENV
+              echo '' >> $GITHUB_ENV
+              echo '⛔️ **Critical vulnerabilities detected. Please review and address these security issues before merging.**' >> $GITHUB_ENV
+              echo '' >> $GITHUB_ENV
+              echo '### Next Steps:' >> $GITHUB_ENV
+              echo '1. Review each critical finding above and fix them according to OWASP top 10 mitigations.' >> $GITHUB_ENV
+              echo 'EOF' >> $GITHUB_ENV
             else
-              echo "COMMENT<<EOF" >> $GITHUB_ENV
-              echo "## Security Scan Results" >> $GITHUB_ENV
-              echo "" >> $GITHUB_ENV
+              echo 'comment_body<<EOF' >> $GITHUB_ENV
+              echo '## 🔒 Security Scan Results' >> $GITHUB_ENV
+              echo '' >> $GITHUB_ENV
               echo '```' >> $GITHUB_ENV
               echo "$SCAN_RESULTS" >> $GITHUB_ENV
               echo '```' >> $GITHUB_ENV
-              echo "" >> $GITHUB_ENV
-              echo "✅ **No critical security issues detected.**" >> $GITHUB_ENV
-              echo "" >> $GITHUB_ENV
-              echo "The code has passed all critical security checks." >> $GITHUB_ENV
-              echo "EOF" >> $GITHUB_ENV
+              echo '' >> $GITHUB_ENV
+              echo '✅ **No critical security issues detected.**' >> $GITHUB_ENV
+              echo '' >> $GITHUB_ENV
+              echo 'The code has passed all critical security checks.' >> $GITHUB_ENV
+              echo 'EOF' >> $GITHUB_ENV
             fi
           else
-            echo "COMMENT=## Security Scan Results\n\n⚠️ **Error: The security scan failed to complete. Please review the workflow logs for more information.**" >> $GITHUB_ENV
+            echo 'comment_body<<EOF' >> $GITHUB_ENV
+            echo '## 🔒 Security Scan Results' >> $GITHUB_ENV
+            echo '' >> $GITHUB_ENV
+            echo '⚠️ **Error: The security scan failed to complete. Please review the workflow logs for more information.**' >> $GITHUB_ENV
+            echo 'EOF' >> $GITHUB_ENV
           fi
 
       - name: Comment PR
         uses: peter-evans/create-or-update-comment@v3
+        if: always()
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ env.COMMENT }}
+          body: ${{ env.comment_body }}
 
-      - name: Fail if critical vulnerabilities found
-        if: steps.check_results.outputs.vulnerabilities_found == 'true'
+      - name: Upload scan artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-scan-results
+          path: |
+            security-scan-results.txt
+            bandit-results.txt
+            safety-results.txt
+          retention-days: 5
+
+      - name: Fail if vulnerabilities found
+        if: steps.security_scan.outputs.vulnerabilities_found == 'true'
         run: |
           echo "::error::Critical security vulnerabilities were detected. Please review the findings and address them before merging."
           exit 1
