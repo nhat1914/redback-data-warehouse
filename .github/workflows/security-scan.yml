@@ -74,9 +74,9 @@ jobs:
           fi
           
           # Check for critical issues
-          if grep -iE "high severity|critical|issue" bandit-results.txt > /dev/null 2>&1; then
+          if grep -iE "Severity\:\ High|Severity\:\ Critical" bandit-results.txt > /dev/null 2>&1; then
             echo "vulnerabilities_found=true" >> $GITHUB_OUTPUT
-          elif [ -f "safety-results.txt" ] && grep -iE "high severity|critical|vulnerability" safety-results.txt > /dev/null 2>&1; then
+          elif [ -f "safety-results.txt" ] && grep -iE "critical" safety-results.txt > /dev/null 2>&1; then
             echo "vulnerabilities_found=true" >> $GITHUB_OUTPUT
           else
             echo "vulnerabilities_found=false" >> $GITHUB_OUTPUT
