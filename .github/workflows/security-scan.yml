@@ -52,7 +52,7 @@ jobs:
           # Run Safety check on requirements
           if [ -f "requirements.txt" ]; then
             echo "Checking dependencies with Safety..."
-            safety check -r requirements.txt --full-report --output text > safety-results.txt || true
+            safety scan -r requirements.txt --output text > safety-results.txt || true
           fi
           
           # Combine results
