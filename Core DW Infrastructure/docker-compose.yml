@@ -80,9 +80,9 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - dp-postgres-data:/var/lib/postgresql/data
       - ./db-init:/docker-entrypoint-initdb.d
-    container_name: postgres
+    container_name: dp-postgres
     networks:
       - dw_network
 
@@ -95,8 +95,8 @@ services:
       - 9200:9200
       - 9300:9300
     volumes:
-      - es-data:/usr/share/elasticsearch/data
-    container_name: elasticsearch
+      - dp-es-data:/usr/share/elasticsearch/data
+    container_name: dp-elasticsearch
     networks:
       - dw_network
 
@@ -104,7 +104,7 @@ services:
     image: docker.elastic.co/kibana/kibana:7.10.1
     ports:
       - 5601:5601
-    container_name: kibana
+    container_name: dp-kibana
     volumes:
       - ./kibana_config/kibana.yml:/usr/share/kibana/config/kibana.yml
     networks:
@@ -115,7 +115,7 @@ services:
       context: ./logstash
     volumes:
       - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - logstash-data:/usr/share/logstash/data
+      - dp-logstash-data:/usr/share/logstash/data
     ports:
       - 5044:5044
     environment:
@@ -123,7 +123,7 @@ services:
       LOG_LEVEL: debug
     env_file:
       - ./logstash/.env
-    container_name: logstash
+    container_name: dp-logstash
     networks:
       - dw_network
 
@@ -134,11 +134,11 @@ volumes:
     external: true
   fileuploadservice_dremio-data:
     external: true
-  postgres-data:
+  dp-postgres-data:
     external: true
-  es-data:
+  dp-es-data:
     external: true
-  logstash-data:
+  dp-logstash-data:
     external: true
 
 networks:

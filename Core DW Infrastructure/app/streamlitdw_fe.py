@@ -112,7 +112,7 @@ def upload_to_minio(file, filename, bucket_name, project, preprocessing_option):
 
 def log_to_elasticsearch(log_data):
     try:
-        response = requests.post("http://logstash:5044", json=log_data)
+        response = requests.post("http://dp-logstash:5044", json=log_data)
         if response.status_code != 200:
             print(f"Failed to log to Logstash: {response.text}")
     except Exception as e:
