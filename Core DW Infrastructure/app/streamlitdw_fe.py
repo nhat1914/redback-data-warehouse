@@ -240,8 +240,11 @@ def main():
         # Project selection dropdown
         project = st.selectbox("Select Project", options=["project1", "project2", "project3", "project4", "project5", "other"], key="upload_project")
 
-        # File uploader
-        uploaded_file = st.file_uploader("Choose a file", type=["csv", "txt", "xlsx", "json"])
+        # File uploader with expanded file types
+        uploaded_file = st.file_uploader(
+        "Choose a file", 
+        type=["csv", "txt", "xlsx", "json", "mp4", "jpg", "jpeg", "png"]
+        )
 
         # Preprocessing selection dropdown
         preprocessing_option = st.selectbox(
@@ -257,21 +260,30 @@ def main():
         if uploaded_file is not None:
             base_name = st.text_input("Enter base name for the file:")
 
+            # Display file details
+            st.write(f"**Uploaded File Name:** {uploaded_file.name}")
+            st.write(f"**File Type:** {uploaded_file.type}")
+            st.write(f"**File Size:** {uploaded_file.size / (1024 * 1024):.2f} MB")
+
+            # Check and validate filename
             if base_name and validate_filename(base_name):
                 # Generate the custom filename with the project prefix
-                custom_filename = generate_custom_filename(project, base_name, uploaded_file.name, add_prefix_suffix)
-                # Display file details
-                st.write(f"**Filename:** {custom_filename}")
-                st.write(f"**File type:** {uploaded_file.type}")
-                st.write(f"**File size:** {uploaded_file.size / (1024 * 1024):.2f} MB")
+                custom_filename = generate_custom_filename(
+                    project, base_name, uploaded_file.name, add_prefix_suffix
+                )
+                st.write(f"**Generated Filename:** {custom_filename}")
 
                 if st.button("Upload to Data Warehouse"):
                     # Upload raw file to Bronze
-                    upload_to_minio(uploaded_file, custom_filename, bucket_name_bronze, project, preprocessing_option)
-                    st.write(f"Selected preprocessing option: {preprocessing_option}")
-                    # Trigger ETL pipeline with the selected preprocessing option
-                    trigger_etl(custom_filename, preprocessing_option)
-
+                    upload_to_minio(
+                        uploaded_file, custom_filename, bucket_name_bronze, project, preprocessing_option
+                    )
+                    st.write(f"Selected Preprocessing Option: {preprocessing_option}")
+                    
+                    # Trigger ETL pipeline if applicable
+                    if preprocessing_option != "No Pre-processing":
+                        trigger_etl(custom_filename, preprocessing_option)
+                    
             else:
                 st.warning("Please enter a valid base name. Only alphanumeric characters are allowed.")
 
