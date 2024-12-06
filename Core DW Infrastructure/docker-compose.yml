@@ -1,0 +1,145 @@
+version: "3.7"
+
+services:
+  dremio:
+    image: dremio/dremio-oss:latest
+    ports:
+      - 9047:9047
+      - 31010:31010
+      - 32010:32010
+    container_name: dremio
+    volumes:
+      - fileuploadservice_dremio-data:/var/lib/dremio
+    networks:
+      - dw_network
+
+  minioserver:
+    image: minio/minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    container_name: minioserver
+    command: server /data --console-address :9001
+    volumes:
+      - data-lakehouse_minio-data:/data
+      - data-lakehouse_minio-config:/root/.minio
+    networks:
+      - dw_network
+
+  streamlit-app:
+    image: streamlit-app
+    build:
+      context: ./app
+    ports:
+      - 80:8501
+    volumes:
+      - ./app:/app
+    container_name: streamlit-app
+    restart: always
+    networks:
+      - dw_network
+
+  flask-api:
+    image: flask-api
+    build:
+      context: ./flask
+    ports:
+      - 5000:5000
+    volumes:
+      - ./flask:/app
+    environment:
+      - FLASK_ENV=development
+    container_name: flask-api
+    restart: always
+    networks:
+      - dw_network
+
+  flaskapp:
+    build:
+      context: ./dremio-api
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000" 
+    env_file:
+      - ./dremio-api/dw.env
+    container_name: structured-solution-api
+    networks:
+      - dw_network
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+    ports:
+      - 5432:5432
+    volumes:
+      - dp-postgres-data:/var/lib/postgresql/data
+      - ./db-init:/docker-entrypoint-initdb.d
+    container_name: dp-postgres
+    networks:
+      - dw_network
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - dp-es-data:/usr/share/elasticsearch/data
+    container_name: dp-elasticsearch
+    networks:
+      - dw_network
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.10.1
+    ports:
+      - 5601:5601
+    container_name: dp-kibana
+    volumes:
+      - ./kibana_config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    networks:
+      - dw_network
+
+  logstash:
+    build:
+      context: ./logstash
+    volumes:
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - dp-logstash-data:/usr/share/logstash/data
+    ports:
+      - 5044:5044
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      LOG_LEVEL: debug
+    env_file:
+      - ./logstash/.env
+    container_name: dp-logstash
+    networks:
+      - dw_network
+
+volumes:
+  data-lakehouse_minio-data:
+    external: true
+  data-lakehouse_minio-config:
+    external: true
+  fileuploadservice_dremio-data:
+    external: true
+  dp-postgres-data:
+    external: true
+  dp-es-data:
+    external: true
+  dp-logstash-data:
+    external: true
+
+networks:
+  dw_network:
+    driver: bridge
