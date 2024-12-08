@@ -68,4 +68,3 @@ jobs:
             trivy_target: ./trivy-results
             reporter: github-pr-review
             level: error
-            fail_on_error: false
