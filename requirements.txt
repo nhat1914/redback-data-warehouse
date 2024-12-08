@@ -1,3 +1,1 @@
 bandit==1.7.5
-flask==0.12.3  # Known vulnerabilities in Flask 0.12.x
-requests==2.18.4  # SSL issues in older Requests versions
