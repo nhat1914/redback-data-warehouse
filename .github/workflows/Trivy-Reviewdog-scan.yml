@@ -1,0 +1,70 @@
+name: build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  trivy-repo-scan:
+    name: Trivy Repo Scan & Upload to Security Tab
+    runs-on: ubuntu-20.04
+    permissions:
+        contents: write
+        security-events: write
+
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: 'fs'
+          ignore-unfixed: true
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  reviewdog-pr-check:
+    name: Trivy PR Check
+    runs-on: ubuntu-latest
+    needs: trivy-repo-scan
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get Changed Files
+        id: changed-files
+        run: |
+            git fetch origin main
+            git diff --name-only origin/main > changed-files.txt
+        
+      - name: Print Changed Files
+        run: |
+            echo "Changed files:"
+            cat changed-files.txt
+
+      - name: Run Trivy on Changed Files
+        if: success()
+        run: |
+            mkdir trivy-results
+            while read -r file; do
+                echo "Scanning $file..."
+                trivy fs --quiet --severity HIGH,CRITICAL --format json --output trivy-results/$(basename $file).json "$file" || true
+            done < changed-files.txt
+
+      - name: Run Reviewdog
+        uses: reviewdog/action-trivy@v1
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            trivy_command: fs
+            trivy_target: ./trivy-results
+            reporter: github-pr-review
+            level: error
