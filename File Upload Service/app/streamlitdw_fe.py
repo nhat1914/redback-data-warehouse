@@ -166,7 +166,7 @@ def main():
 
                     selected_file = st.selectbox("Select File to Download", df["File"].tolist())
 
-                    if st.button("Download Selected File from Bronze"):
+                    if (selected_file):
                         file_content = download_file("dw-bucket-bronze", selected_project, selected_file)
                         if file_content:
                             st.download_button(label=f"Download {selected_file}", data=file_content, file_name=selected_file.split("/")[-1])
@@ -191,7 +191,7 @@ def main():
 
                     selected_file = st.selectbox("Select File to Download", df["File"].tolist())
 
-                    if st.button("Download Selected File from Silver"):
+                    if (selected_file):
                         file_content = download_file("dw-bucket-silver", selected_project, selected_file)
                         if file_content:
                             st.download_button(label=f"Download {selected_file}", data=file_content, file_name=selected_file.split("/")[-1])
