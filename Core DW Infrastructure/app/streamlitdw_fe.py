@@ -295,22 +295,28 @@ def main():
         files_by_project = get_file_list("dw-bucket-bronze")
 
         if files_by_project:
-            available_projects = list(files_by_project.keys())  # Get project names (folders)
+            available_projects = ["Select a project"] + list(files_by_project.keys())  # Add default option
             selected_project = st.selectbox("Select Project Folder", available_projects, key="bronze_project")
 
-            if selected_project in files_by_project:
+            if selected_project != "Select a project" and selected_project in files_by_project:
                 file_list = [{"Project": selected_project, "File": file} for file in files_by_project[selected_project]]
 
                 if file_list:
                     df = pd.DataFrame(file_list)
                     st.dataframe(df)  # Display the table with the filtered list of files
 
-                    selected_file = st.selectbox("Select File to Download", df["File"].tolist(), key="bronze_file")
+                    file_options = ["Select a file"] + df["File"].tolist()  # Add default option
+                    selected_file = st.selectbox("Select File to Download", file_options, key="bronze_file")
 
-                    if st.button("Download Selected File from Bronze"):
+                    if selected_file != "Select a file":
                         file_content = download_file("dw-bucket-bronze", selected_project, selected_file)
                         if file_content:
-                            st.download_button(label=f"Download {selected_file}", data=file_content, file_name=selected_file.split("/")[-1])
+                            st.download_button(
+                                label="Download File",
+                                data=file_content,
+                                file_name=selected_file.split("/")[-1],
+                                mime="application/octet-stream"
+                            )
 
     # Tab 3: View Silver Files
     with tabs[2]:
@@ -320,22 +326,28 @@ def main():
         files_by_project = get_file_list("dw-bucket-silver")
 
         if files_by_project:
-            available_projects = list(files_by_project.keys())  # Get project names (folders)
+            available_projects = ["Select a project"] + list(files_by_project.keys())  # Add default option
             selected_project = st.selectbox("Select Project Folder", available_projects, key="silver_project")
 
-            if selected_project in files_by_project:
+            if selected_project != "Select a project" and selected_project in files_by_project:
                 file_list = [{"Project": selected_project, "File": file} for file in files_by_project[selected_project]]
 
                 if file_list:
                     df = pd.DataFrame(file_list)
                     st.dataframe(df)  # Display the table with the filtered list of files
 
-                    selected_file = st.selectbox("Select File to Download", df["File"].tolist(), key="silver_file")
+                    file_options = ["Select a file"] + df["File"].tolist()  # Add default option
+                    selected_file = st.selectbox("Select File to Download", file_options, key="silver_file")
 
-                    if st.button("Download Selected File from Silver"):
+                    if selected_file != "Select a file":
                         file_content = download_file("dw-bucket-silver", selected_project, selected_file)
                         if file_content:
-                            st.download_button(label=f"Download {selected_file}", data=file_content, file_name=selected_file.split("/")[-1])
+                            st.download_button(
+                                label="Download File",
+                                data=file_content,
+                                file_name=selected_file.split("/")[-1],
+                                mime="application/octet-stream"
+                            )
 
 if __name__ == "__main__":
     main()
