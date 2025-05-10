@@ -23,4 +23,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8501
 
 # run file upload service
-CMD ["streamlit", "run", "streamlitdw_fe.py"]
+CMD ["streamlit", "run", "streamlitdw_fe_mt.py"]
